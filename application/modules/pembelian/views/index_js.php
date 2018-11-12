@@ -49,7 +49,44 @@
  
      // Create table list
     
+     function simpanapp(){
+      var o = 0;
+      var p = 0;
 
+
+      $( ".required_" ).each(function() {
+        if($(this).val()==""){
+          o++;
+        }
+      });
+      $( ".required_angka" ).each(function() {
+        if($(this).val()=="" || $(this).val()=="0"){
+          p++;
+        }
+      }); 
+       
+      if(o>0){
+          _costume_alert('Peringatan !', 'Data masih Kosong');
+      }else if(p>0){
+          _costume_alert('Peringatan !', 'Data masih Kosong');
+      }else{
+        var datas = $('#frm').serialize();
+        $.ajax({
+         url: '<?php echo base_url()?>pembelian/savedata',
+         type: 'post', 
+         data: datas,
+         success: function(response){  
+            _costume_alert('Info', 'Data berhasil diprosess');
+            clear();
+         }
+        });
+      }
+     }
+
+     function clear(){
+      $('.required_angka').val('0');
+      $('.required_').val(''); 
+     }
        
 
        

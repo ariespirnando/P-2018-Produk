@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Server version:               10.1.36-MariaDB - Source distribution
+-- Host:                         localhost
+-- Server version:               5.7.24-0ubuntu0.18.04.1 - (Ubuntu)
 -- Server OS:                    Linux
 -- HeidiSQL Version:             9.5.0.5196
 -- --------------------------------------------------------
@@ -42,11 +42,11 @@ CREATE TABLE IF NOT EXISTS `master_jenis` (
 -- Dumping data for table erp_produk.master_jenis: ~5 rows (approximately)
 /*!40000 ALTER TABLE `master_jenis` DISABLE KEYS */;
 INSERT INTO `master_jenis` (`imaster_jenis`, `itipe`, `nama_jenis`, `harga_beli`, `harga_jual`, `harga_sortir`, `harga_giling`) VALUES
-	(1, 0, 'ALE-ALE', 0, 0, 0, 0),
-	(2, 0, 'PPS', 0, 0, 0, 0),
-	(3, 0, 'KALENG', 0, 0, 0, 0),
-	(4, 0, 'KABEL', 0, 0, 0, 0),
-	(5, 0, 'BOTOL', 0, 0, 0, 0);
+	(1, 0, 'ALE-ALE', 4500, 0, 0, 0),
+	(2, 0, 'PPS', 5300, 0, 0, 0),
+	(3, 0, 'KALENG', 2100, 0, 0, 0),
+	(4, 0, 'KABEL', 3900, 0, 0, 0),
+	(5, 0, 'BOTOL', 5400, 0, 0, 0);
 /*!40000 ALTER TABLE `master_jenis` ENABLE KEYS */;
 
 -- Dumping structure for table erp_produk.master_suplier
@@ -54,15 +54,50 @@ CREATE TABLE IF NOT EXISTS `master_suplier` (
   `imaster_suplier` int(11) NOT NULL AUTO_INCREMENT,
   `nama_suplier` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`imaster_suplier`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Dumping data for table erp_produk.master_suplier: ~2 rows (approximately)
+-- Dumping data for table erp_produk.master_suplier: ~4 rows (approximately)
 /*!40000 ALTER TABLE `master_suplier` DISABLE KEYS */;
 INSERT INTO `master_suplier` (`imaster_suplier`, `nama_suplier`) VALUES
 	(5, 'IWAN BOPENG'),
 	(6, 'CECENG SUJANA'),
-	(7, 'SANDIAGA UNO');
+	(7, 'SANDIAGA UNO'),
+	(9, 'AINI RAHMAYANTI');
 /*!40000 ALTER TABLE `master_suplier` ENABLE KEYS */;
+
+-- Dumping structure for table erp_produk.pembelian
+CREATE TABLE IF NOT EXISTS `pembelian` (
+  `ipembelian` int(11) NOT NULL AUTO_INCREMENT,
+  `cNomor_pembelian` varchar(50) DEFAULT NULL,
+  `tanggal_pembelian` datetime DEFAULT NULL,
+  `pic_pembelian` varchar(50) DEFAULT NULL,
+  `total_all` float DEFAULT NULL,
+  `imaster_suplier` int(11) DEFAULT NULL,
+  PRIMARY KEY (`ipembelian`),
+  KEY `pic_pembelian` (`pic_pembelian`),
+  KEY `imaster_suplier` (`imaster_suplier`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Dumping data for table erp_produk.pembelian: ~0 rows (approximately)
+/*!40000 ALTER TABLE `pembelian` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pembelian` ENABLE KEYS */;
+
+-- Dumping structure for table erp_produk.pembelian_detail
+CREATE TABLE IF NOT EXISTS `pembelian_detail` (
+  `pembelian_detail` int(11) NOT NULL AUTO_INCREMENT,
+  `ipembelian` int(11) NOT NULL,
+  `imaster_jenis` int(11) NOT NULL,
+  `total_harga` float NOT NULL DEFAULT '0',
+  `harga_beli` float NOT NULL DEFAULT '0',
+  `total_kg` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`pembelian_detail`),
+  KEY `ipembelian` (`ipembelian`),
+  KEY `imaster_jenis` (`imaster_jenis`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table erp_produk.pembelian_detail: ~0 rows (approximately)
+/*!40000 ALTER TABLE `pembelian_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pembelian_detail` ENABLE KEYS */;
 
 
 -- Dumping database structure for erplaning
@@ -117,7 +152,7 @@ CREATE TABLE IF NOT EXISTS `app_erpgroup` (
   KEY `iapp_erpmodule` (`iapp_erpmodule`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Dumping data for table erplaning.app_erpgroup: ~10 rows (approximately)
+-- Dumping data for table erplaning.app_erpgroup: ~9 rows (approximately)
 /*!40000 ALTER TABLE `app_erpgroup` DISABLE KEYS */;
 INSERT INTO `app_erpgroup` (`iiapp_erpgroup`, `iapp_erpmodule`, `vgroup`, `dcreate`) VALUES
 	(17, 5, 'Super Admin', NULL),
@@ -148,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `app_erpgroup_config` (
   KEY `iapp_erpmoduldetail` (`iapp_erpmoduldetail`)
 ) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Dumping data for table erplaning.app_erpgroup_config: ~41 rows (approximately)
+-- Dumping data for table erplaning.app_erpgroup_config: ~42 rows (approximately)
 /*!40000 ALTER TABLE `app_erpgroup_config` DISABLE KEYS */;
 INSERT INTO `app_erpgroup_config` (`iapp_erpgroup_config`, `iiapp_erpgroup`, `iapp_erpmodule`, `iapp_erpmoduldetail`, `iview`, `iedit`, `idelete`, `iadd`, `dcreate`) VALUES
 	(1, 18, 5, 22, 1, 0, 0, 0, '2018-11-09'),
@@ -208,7 +243,7 @@ CREATE TABLE IF NOT EXISTS `app_erpgroup_user` (
   KEY `capp_employee` (`capp_employee`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Dumping data for table erplaning.app_erpgroup_user: ~8 rows (approximately)
+-- Dumping data for table erplaning.app_erpgroup_user: ~9 rows (approximately)
 /*!40000 ALTER TABLE `app_erpgroup_user` DISABLE KEYS */;
 INSERT INTO `app_erpgroup_user` (`iapp_erpgroup_user`, `iiapp_erpgroup`, `capp_employee`, `iapp_erpmodule`, `dcreate`) VALUES
 	(5, 18, 'KRY00001', 5, '2018-11-09'),
@@ -236,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `app_erpmoduldetail` (
   KEY `iapp_erpmodule` (`iapp_erpmodule`)
 ) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
--- Dumping data for table erplaning.app_erpmoduldetail: ~16 rows (approximately)
+-- Dumping data for table erplaning.app_erpmoduldetail: ~17 rows (approximately)
 /*!40000 ALTER TABLE `app_erpmoduldetail` DISABLE KEYS */;
 INSERT INTO `app_erpmoduldetail` (`iapp_erpmoduldetail`, `turl`, `iactived`, `iparent`, `tparenturl`, `itipe`, `tnamedetail`, `iapp_erpmodule`) VALUES
 	(1, 'm_application', 0, 0, '', 1, 'Application', 1),
@@ -267,7 +302,7 @@ CREATE TABLE IF NOT EXISTS `app_erpmodule` (
   PRIMARY KEY (`iapp_erpmodule`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
--- Dumping data for table erplaning.app_erpmodule: ~5 rows (approximately)
+-- Dumping data for table erplaning.app_erpmodule: ~4 rows (approximately)
 /*!40000 ALTER TABLE `app_erpmodule` DISABLE KEYS */;
 INSERT INTO `app_erpmodule` (`iapp_erpmodule`, `iactivied`, `vmodule`, `dcreate`) VALUES
 	(1, 0, 'Privilages ', '2018-11-07'),

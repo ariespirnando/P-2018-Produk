@@ -68,7 +68,55 @@ class Pembelian extends MY_Controller {
         echo json_encode($data);
         exit;  
     }
- 
+    
+    function savedata(){ 
+        $imaster_suplier = $this->input->post('imaster_suplier');
+        $nama_suplier    = $this->input->post('nama_suplier');
+        $total_all       = $this->input->post('total_all');
+
+        if($imaster_suplier=="" || $imaster_suplier==0){
+            //Insert Suplier Dulu
+            $sup['nama_suplier'] = strtoupper($nama_suplier);
+            $this->db->insert('erp_produk.master_suplier',$sup);
+            $imaster_suplier = $this->db->insert_id();
+        }
+
+        //Save Headernya dulu;
+        $pemb['tanggal_pembelian'] = date('Y-m-d H:i:s');
+        $pemb['pic_pembelian']     = $this->session->userdata('capp_employee');
+        $pemb['total_all']         = str_replace(',', '', $total_all);
+        $pemb['imaster_suplier']   = $imaster_suplier;
+        $this->db->insert('erp_produk.pembelian',$pemb);
+        $ipembelian = $this->db->insert_id();
+
+        //Update Kodenya
+        $nomor = 'PMB'.str_pad($ipembelian, 5, "0", STR_PAD_LEFT); 
+        $updt['cNomor_pembelian']= $nomor;   
+        $this->db->where('ipembelian', $ipembelian);
+        $this->db->update('erp_produk.pembelian', $updt);
+
+        //Simpan Detailnya
+        $arr_pem = array();
+        foreach($this->input->post('total_harga') as $k=>$v){ 
+            $arr_pem['total_harga'][$k] = str_replace(',', '',$v);
+        } 
+        foreach($this->input->post('harga_beli') as $k=>$v){ 
+            $arr_pem['harga_beli'][$k] = str_replace(',', '',$v);
+        } 
+        foreach($this->input->post('total_kg') as $k=>$v){ 
+            $arr_pem['total_kg'][$k] = str_replace(',', '',$v);
+        } 
+        foreach($this->input->post('imaster_jenis') as $k=>$v){ 
+            $pemdet = array();
+            $pemdet['ipembelian'] = $ipembelian;  
+            $pemdet['imaster_jenis'] = $v;  
+            $pemdet['total_harga'] = $arr_pem['total_harga'][$k];
+            $pemdet['total_kg']    = $arr_pem['total_kg'][$k];
+            $pemdet['harga_beli']  = $arr_pem['harga_beli'][$k];
+            $this->db->insert('erp_produk.pembelian_detail', $pemdet);  
+        }    
+        exit;
+    }
     
 
 

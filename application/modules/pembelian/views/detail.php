@@ -14,7 +14,7 @@
         <td style="width:5%;text-align: center;"><span class="tablepembelian_numasd">1</span></td> 
         <td style="width:15%;">  
             <input type="text" class="form-control nama_jenis required_" id="nama_jenis" name="nama_jenis[]" required="required" placeholder="Jenis Barang">
-            <input type="hidden" class="form-control imaster_jenis" id="imaster_jenis" name="imaster_jenis[]" required="required" placeholder="Jenis Barang">
+            <input type="hidden" class="form-control required_ imaster_jenis" id="imaster_jenis" name="imaster_jenis[]" required="required" placeholder="Jenis Barang">
         </td> 
         <td style="width:15%;">  
           <input type="text" maxlength="12" class="form-control harga_beli angka required_angka" id="harga_beli" name="harga_beli[]" required="required" placeholder="Harga Beli">
@@ -33,7 +33,7 @@
     <td colspan="4" align="left">   
     </td>
     <td>   
-      <input type="text" class="form-control total_all angka required_angka" readonly id="total_all" name="total_all[]" required="required" placeholder="Total Seluruh">
+      <input type="text" class="form-control total_all angka required_angka" readonly id="total_all" name="total_all" required="required" placeholder="Total Seluruh">
     </td>
     <td>   
     </td>
@@ -41,7 +41,7 @@
    <tr>
      <td colspan="6" align="left"> 
         <span onClick="add_row2('tablepembelian')" class="btn btn-primary"><span class="glyphicon glyphicon-plus" aria-hidden="false"> Detail</span> </span> 
-        <span onClick="add_row2('tablepembelian')" class="btn btn-warning"><span class="glyphicon glyphicon-edit" aria-hidden="false"> Prosess</span> </span>
+        <span onClick="simpanapp()" class="btn btn-warning"><span class="glyphicon glyphicon-edit" aria-hidden="false"> Prosess</span> </span>
        </div>
      </td>
     </tr>
@@ -59,8 +59,8 @@
         row_content  += '<tr>';
         row_content  += '    <td style="width:5%;text-align: center;"><span class="tablepembelian_numasd">'+c+'</span></td>';
         row_content  += '    <td style="width:15%;">'; 
-        row_content  += '        <input type="text" class="form-control required nama_jenis_'+c+'" id="nama_jenis" name="nama_jenis[]" required="required" placeholder="Jenis Barang">';
-        row_content  += '        <input type="hidden" class="form-control imaster_jenis_'+c+'" id="imaster_jenis" name="imaster_jenis[]" required="required" placeholder="Jenis Barang">'; 
+        row_content  += '        <input type="text" class="form-control required_ nama_jenis_'+c+'" id="nama_jenis" name="nama_jenis[]" required="required" placeholder="Jenis Barang">';
+        row_content  += '        <input type="hidden" class="form-control required_ imaster_jenis_'+c+'" id="imaster_jenis" name="imaster_jenis[]" required="required" placeholder="Jenis Barang">'; 
         row_content  += '    </td>';  
         row_content  += '    <td style="width:15%;">'; 
         row_content  += '        <input type="text" maxlength="12" class="form-control required_angka harga_beli_'+c+' angka_'+c+' " id="harga_beli" name="harga_beli[]" required="required" placeholder="Harga Beli">';
