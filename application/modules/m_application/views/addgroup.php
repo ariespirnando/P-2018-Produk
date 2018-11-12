@@ -34,7 +34,13 @@
 </div>  
 <div class="row">
     <div class="col-md-6"> 
+      <?php 
+        if($iapp_erpmodule!=1){
+      ?>
      <span class="btn btn-primary" onclick="adddata()">Add Data</span> 
+     <?php 
+      }
+     ?>
     </div>
     <div class="col-md-6 text-right"> 
       <div style='margin-top: 10px;' id='pagination'></div>

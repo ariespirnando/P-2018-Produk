@@ -19,7 +19,8 @@
      <link href="<?php echo base_url('assets/jquery-ui-1.12.1.custom/jquery-ui.theme.min.css');?>" rel="stylesheet"> 
      <link href="<?php echo base_url('assets/fontawesome/css/fontawesome-all.min.css');?>" rel="stylesheet">
     
-       
+    <script src="<?php echo base_url() ?>assets/js/biginteger.min.js"></script>
+    <script src="<?php echo base_url() ?>assets/js/math.js"></script>
     <script src="<?php echo base_url() ?>assets/js/jquery.js"></script>
     <script src="<?php echo base_url() ?>assets/js/jquery-confirm.min.js"></script>
     <script src="<?php echo base_url('assets/jquery-ui-1.12.1.custom/jquery-ui.min.js');?>"></script> 
@@ -28,6 +29,7 @@
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/bootstrap-datepicker3.css"/>
 
     <script src="<?php echo base_url() ?>assets/js/alert.js"></script>
+    
      
      
     

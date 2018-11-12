@@ -98,8 +98,7 @@
           tr += "<td>"+ tipe +"</td>";
           tr += "<td style='text-align:center;vertical-align:middle'><a href='<?php echo $addmodule?>/"+result[index].iapp_erpmodule+"'><span class='btn btn-default'><i class='fa fa-plus'></i></span></a></td>";
           tr += "<td style='text-align:center;vertical-align:middle'><a href='<?php echo $addgroup?>/"+result[index].iapp_erpmodule+"'><span class='btn btn-default'><i class='fa fa-plus'></i></span></a></td>"; 
-          tr += "<td style='text-align:center;vertical-align:middle'><span onclick='editdata("+ result[index].iapp_erpmodule +")' class='btn btn-primary'><i class='fa fa-edit'></i></span></td>"; 
-          tr += "<td style='text-align:center;vertical-align:middle'><a href='<?php echo $delete?>/"+result[index].iapp_erpmodule+"'><span class='btn btn-danger'><i class='fa fa-trash'></i></span></a></td>"; 
+          tr += "<td style='text-align:center;vertical-align:middle'><span onclick='editdata("+ result[index].iapp_erpmodule +")' class='btn btn-primary'><i class='fa fa-edit'></i></span></td>";  
           tr += "</tr>";
           $('#dataload_ok tbody').append(tr); 
         }

@@ -1,4 +1,10 @@
-<h4>Application</h4>
+<h4>Produk - Transaksi Pembelian</h4>
+<hr>
+
+<div class="form_transaksi"><?php $this->load->view('transaksi') ?></div> 
+
+<hr>
+<h4>History - Transaksi Pembelian</h4>
 <hr>
 
 <div class="row">
@@ -20,12 +26,11 @@
 	     <thead>  
 	          <tr> 
                  <th width="2%" style="text-align: center;vertical-align: middle;">No</th>   
-	               <th width="40%" style="text-align: center;vertical-align: middle;">Nama Aplikasi</th>  
-	               <th width="15%" style="text-align: center;vertical-align: middle;">Tanggal Dibuat</th> 
-                 <th width="10%" style="text-align: center;vertical-align: middle;">Keterangan</th>  
-	               <th width="5%" style="text-align: center;vertical-align: middle;">Module</th>
-                 <th width="5%" style="text-align: center;vertical-align: middle;">Group</th> 
-                 <th width="5%" style="text-align: center;vertical-align: middle;">Update</th>  
+	               <th width="20%" style="text-align: center;vertical-align: middle;">Transaksi</th>  
+	               <th width="25%" style="text-align: center;vertical-align: middle;">Nama Supplier</th> 
+                 <th width="20%" style="text-align: center;vertical-align: middle;">Total</th>  
+	               <th width="5%" style="text-align: center;vertical-align: middle;">Detail</th>
+                 <th width="5%" style="text-align: center;vertical-align: middle;">Delete</th>  
 	          </tr>  
 	     </thead>  
        <tbody> 

@@ -24,8 +24,7 @@
 	               <th width="15%" style="text-align: center;vertical-align: middle;">URL</th> 
                  <th width="10%" style="text-align: center;vertical-align: middle;">TIPE</th>  
 	               <th width="10%" style="text-align: center;vertical-align: middle;">Parent URL</th> 
-                 <th width="10%" style="text-align: center;vertical-align: middle;">Update</th> 
-                 <th width="10%" style="text-align: center;vertical-align: middle;">Delete</th> 
+                 <th width="10%" style="text-align: center;vertical-align: middle;">Update</th>  
 	          </tr>  
 	     </thead>  
        <tbody> 
@@ -35,7 +34,7 @@
 </div>  
 <div class="row">
     <div class="col-md-6"> 
-     <span class="btn btn-primary" onclick="adddata()">Add Data</span> 
+      
     </div>
     <div class="col-md-6 text-right"> 
       <div style='margin-top: 10px;' id='pagination'></div>
@@ -92,8 +91,7 @@
         tr += "<td>"+ result[index].turl +"</td>";
         tr += "<td>"+ tipe +"</td>";
         tr += "<td>"+ result[index].tparenturl +"</td>"; 
-        tr += "<td style='text-align:center;vertical-align:middle'><span onclick='editmodule("+ result[index].iapp_erpmoduldetail +")' class='btn btn-primary'><i class='fa fa-edit'></i></span></td>"; 
-        tr += "<td style='text-align:center;vertical-align:middle'><span onclick='deletemodule("+ result[index].iapp_erpmoduldetail +")' class='btn btn-danger'><i class='fa fa-trash'></i></span></td>"; 
+        tr += "<td style='text-align:center;vertical-align:middle'><span onclick='editmodule("+ result[index].iapp_erpmoduldetail +")' class='btn btn-primary'><i class='fa fa-edit'></i></span></td>";   
         tr += "</tr>";
         $('#dataload_ok tbody').append(tr); 
       }
