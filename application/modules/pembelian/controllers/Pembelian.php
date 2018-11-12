@@ -50,6 +50,24 @@ class Pembelian extends MY_Controller {
         echo json_encode($data);
         exit;  
     }
+
+    function jenis(){
+        $key = $this->input->get("term");     
+        $data = array();
+        $sql = "SELECT m.nama_jenis,m.harga_beli, m.imaster_jenis from erp_produk.master_jenis m where m.nama_jenis LIKE '%".$key."%'";   
+        $que = $this->db->query($sql)->result_array();
+        if(!empty($que)){
+            foreach ($que as $line) {  
+                $row['id']        = trim($line['imaster_jenis']);
+                $row['value']     = trim($line['nama_jenis']); 
+                $row['harga']     = number_format(trim($line['harga_beli'])); 
+                array_push($data, $row);
+            }
+        } 
+                    
+        echo json_encode($data);
+        exit;  
+    }
  
     
 

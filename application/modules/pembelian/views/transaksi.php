@@ -5,7 +5,7 @@
   </div>
   <div class="form-group">
       <label>Supplier</label>
-      <input type="text" class="form-control nama_suplier" id="nama_suplier" name="nama_suplier" required="required" placeholder="Supplier" value="">
+      <input type="text" class="form-control nama_suplier required_" id="nama_suplier" name="nama_suplier" required="required" placeholder="Supplier" value="">
       <input type="hidden" class="form-control imaster_suplier" id="imaster_suplier" name="imaster_suplier" required="required" placeholder="Supplier" value="">
   </div>
   <div class="form-group">
