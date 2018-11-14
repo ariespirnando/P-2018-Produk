@@ -28,7 +28,8 @@
                  <th width="2%" style="text-align: center;vertical-align: middle;">No</th>   
 	               <th width="20%" style="text-align: center;vertical-align: middle;">Transaksi</th>  
 	               <th width="25%" style="text-align: center;vertical-align: middle;">Nama Supplier</th> 
-                 <th width="20%" style="text-align: center;vertical-align: middle;">Total</th>  
+                 <th width="20%" style="text-align: center;vertical-align: middle;">Total (Rp.)</th>  
+                 <th width="20%" style="text-align: center;vertical-align: middle;">Tanggal Transaksi</th>  
 	               <th width="5%" style="text-align: center;vertical-align: middle;">Detail</th>
                  <th width="5%" style="text-align: center;vertical-align: middle;">Delete</th>  
 	          </tr>  
@@ -39,10 +40,10 @@
     
 </div>  
 <div class="row">
-    <div class="col-md-6">  
-    </div>
-    <div class="col-md-6 text-right"> 
+    <div class="col-md-6 text-left">  
       <div style='margin-top: 10px;' id='pagination'></div>
+    </div>
+    <div class="col-md-6 text-right">  
     </div>
 </div>
 

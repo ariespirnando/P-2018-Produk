@@ -7,17 +7,21 @@ class Pembelian extends MY_Controller {
         if(!$this->session->userdata('loggedin')){   
             redirect('auth');
         } 
+        $this->load->model(array('Pembelian_mod'));
         $this->load->library('pagination');
     }
 
 	public function index(){ 
         $data = array();
+        $data['detail'] = base_url().'pembelian/detail/';
         $this->template->load('core_template','index',$data);
     }
- 
+    function loaddetailform(){
+        echo $this->load->view('detail',true);
+    }
     public function loadRecord($rowno=0){  
         $q = $this->input->post('q'); 
-        $rowperpage = 8; 
+        $rowperpage = 5; 
         if($rowno != 0){
           $rowno = ($rowno-1) * $rowperpage;
         } 

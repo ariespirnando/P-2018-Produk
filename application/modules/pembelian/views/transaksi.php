@@ -11,7 +11,9 @@
   <div class="form-group">
         <div class="form-group">
           <label>Detail Pembelian</label>
-          <?php $this->load->view('detail') ?>
+          <div class="reload_detail">
+            <?php $this->load->view('detail') ?>
+          </div>
       </div>
   </div> 
 </form>
