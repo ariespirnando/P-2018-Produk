@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `master_suplier` (
   PRIMARY KEY (`imaster_suplier`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Dumping data for table erp_produk.master_suplier: ~4 rows (approximately)
+-- Dumping data for table erp_produk.master_suplier: ~3 rows (approximately)
 /*!40000 ALTER TABLE `master_suplier` DISABLE KEYS */;
 INSERT INTO `master_suplier` (`imaster_suplier`, `nama_suplier`) VALUES
 	(5, 'IWAN BOPENG'),
@@ -73,13 +73,24 @@ CREATE TABLE IF NOT EXISTS `pembelian` (
   `pic_pembelian` varchar(50) DEFAULT NULL,
   `total_all` float DEFAULT NULL,
   `imaster_suplier` int(11) DEFAULT NULL,
+  `istatus_hapus` int(11) DEFAULT '0',
+  `keterangan_hapus` text,
+  `pic_hapus` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`ipembelian`),
   KEY `pic_pembelian` (`pic_pembelian`),
   KEY `imaster_suplier` (`imaster_suplier`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
--- Dumping data for table erp_produk.pembelian: ~0 rows (approximately)
+-- Dumping data for table erp_produk.pembelian: ~7 rows (approximately)
 /*!40000 ALTER TABLE `pembelian` DISABLE KEYS */;
+INSERT INTO `pembelian` (`ipembelian`, `cNomor_pembelian`, `tanggal_pembelian`, `pic_pembelian`, `total_all`, `imaster_suplier`, `istatus_hapus`, `keterangan_hapus`, `pic_hapus`) VALUES
+	(1, 'PMB00001', '2018-11-14 10:05:07', 'KRY00017', 600000, 5, 0, NULL, NULL),
+	(2, 'PMB00002', '2018-11-14 10:09:07', 'KRY00017', 6576000, 5, 0, NULL, NULL),
+	(3, 'PMB00003', '2018-11-14 10:43:32', 'KRY00017', 530000, 9, 0, NULL, NULL),
+	(4, 'PMB00004', '2018-11-14 11:00:05', 'KRY00017', 42000, 9, 0, NULL, NULL),
+	(5, 'PMB00005', '2018-11-14 11:00:33', 'KRY00017', 26500000, 7, 0, NULL, NULL),
+	(6, 'PMB00006', '2018-11-14 11:00:45', 'KRY00017', 106000, 7, 0, NULL, NULL),
+	(7, 'PMB00007', '2018-11-14 11:04:17', 'KRY00017', 264000, 5, 0, NULL, NULL);
 /*!40000 ALTER TABLE `pembelian` ENABLE KEYS */;
 
 -- Dumping structure for table erp_produk.pembelian_detail
@@ -93,10 +104,22 @@ CREATE TABLE IF NOT EXISTS `pembelian_detail` (
   PRIMARY KEY (`pembelian_detail`),
   KEY `ipembelian` (`ipembelian`),
   KEY `imaster_jenis` (`imaster_jenis`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table erp_produk.pembelian_detail: ~0 rows (approximately)
+-- Dumping data for table erp_produk.pembelian_detail: ~11 rows (approximately)
 /*!40000 ALTER TABLE `pembelian_detail` DISABLE KEYS */;
+INSERT INTO `pembelian_detail` (`pembelian_detail`, `ipembelian`, `imaster_jenis`, `total_harga`, `harga_beli`, `total_kg`) VALUES
+	(1, 1, 3, 420000, 2100, 200),
+	(2, 1, 1, 180000, 4500, 40),
+	(3, 2, 1, 4050000, 4500, 900),
+	(4, 2, 2, 636000, 5300, 120),
+	(5, 2, 3, 1890000, 2100, 900),
+	(6, 3, 2, 530000, 5300, 100),
+	(7, 4, 3, 42000, 2100, 20),
+	(8, 5, 2, 26500000, 5300, 5000),
+	(9, 6, 2, 106000, 5300, 20),
+	(10, 7, 2, 159000, 5300, 30),
+	(11, 7, 3, 105000, 2100, 50);
 /*!40000 ALTER TABLE `pembelian_detail` ENABLE KEYS */;
 
 
