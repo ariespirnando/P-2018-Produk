@@ -121,6 +121,18 @@ class Pembelian extends MY_Controller {
         }    
         exit;
     }
+
+    function deleteid(){
+        $ipembelian = $this->input->post('id');
+        $keterangan_hapus = $this->input->post('name'); 
+
+        $updt['keterangan_hapus'] = $keterangan_hapus;
+        $updt['istatus_hapus']    = 1;
+        $updt['pic_hapus']        = $this->session->userdata('capp_employee');
+
+        $this->db->where('ipembelian', $ipembelian);
+        $this->db->update('erp_produk.pembelian', $updt);
+    }
     
 
 

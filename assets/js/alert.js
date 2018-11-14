@@ -13,3 +13,44 @@ function _costume_alert(ti,ci){
 	  }
 	});
 }
+function _costume_delete(id,ti,lb,pl,res,url){
+    $.confirm({
+        title: ti,
+        content: '' +
+        '<form action="" class="formName">' +
+        '<div class="form-group">' +
+        '<label>'+lb+'</label>' +
+        '<input type="text" placeholder="'+pl+'" class="name form-control" required />' +
+        '</div>' +
+        '</form>',
+        buttons: {
+            formSubmit: {
+                text: 'Submit',
+                btnClass: 'btn-blue',
+                action: function () {
+                    var name = this.$content.find('.name').val(); 
+                    $.ajax({
+				         url: url,
+				         type: 'post',
+				         data: "id="+id+"&name="+name, 
+				         success: function(response){
+				            $.alert(res);
+				         }
+				       }); 
+                }
+            },
+            cancel: function () {
+                //close
+            },
+        },
+        onContentReady: function () {
+            // bind to events
+            var jc = this;
+            this.$content.find('form').on('submit', function (e) {
+                // if the user submits the form by pressing enter in the field.
+                e.preventDefault();
+                jc.$$formSubmit.trigger('click'); // reference the button and click it
+            });
+        }
+    });
+}

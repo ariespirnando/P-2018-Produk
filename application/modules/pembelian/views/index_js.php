@@ -76,7 +76,7 @@
         tr += "<td>"+ result[index].tanggal_pembelian +"</td>"; 
         
         tr += "<td style='text-align:center;vertical-align:middle'><a href='<?php echo $detail?>"+result[index].ipembelian+"'><span class='btn btn-default'><i class='fa fa-folder-open'></i></span></a></td>";  
-        tr += "<td style='text-align:center;vertical-align:middle'><span onclick='deletegroup("+ result[index].ipembelian +")' class='btn btn-danger'><i class='fa fa-trash'></i></span></td>"; 
+        tr += "<td style='text-align:center;vertical-align:middle'><span onclick='deletedata("+ result[index].ipembelian +")' class='btn btn-danger'><i class='fa fa-trash'></i></span></td>"; 
         tr += "</tr>";
         $('#dataload_ok tbody').append(tr); 
       }
@@ -310,6 +310,9 @@
           }           
       });  
     });
-       
+    function deletedata(i){ 
+      var url = '<?php echo base_url()?>pembelian/deleteid';
+      _costume_delete(i,'Hapus Data','Keterangan','Keterangan','Data Berhasil dihapus !!',url);
+    }
 
 </script>
