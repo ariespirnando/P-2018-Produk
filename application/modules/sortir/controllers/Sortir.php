@@ -1,19 +1,19 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Pembelian extends MY_Controller {  
+class Sortir extends MY_Controller {  
     function __construct() {
         parent::__construct();
         if(!$this->session->userdata('loggedin')){   
             redirect('auth');
         } 
-        $this->load->model(array('Pembelian_mod'));
+        $this->load->model(array('Sortir_mod'));
         $this->load->library('pagination');
     }
 
 	public function index(){ 
         $data = array();
-        $data['detail'] = base_url().'pembelian/detail/';
+        $data['detail'] = base_url().'sortir/detail/';
         $this->template->load('core_template','index',$data);
     }
     function loaddetailform(){
@@ -25,9 +25,9 @@ class Pembelian extends MY_Controller {
         if($rowno != 0){
           $rowno = ($rowno-1) * $rowperpage;
         } 
-        $allcount = $this->Pembelian_mod->total_rows($q); 
-        $users_record = $this->Pembelian_mod->get_limit_data($rowperpage, $rowno, $q); 
-        $config['base_url'] = base_url().'Pembelian/loadRecord';
+        $allcount = $this->Sortir_mod->total_rows($q); 
+        $users_record = $this->Sortir_mod->get_limit_data($rowperpage, $rowno, $q); 
+        $config['base_url'] = base_url().'Sortir/loadRecord';
         $config['use_page_numbers'] = TRUE;
         $config['total_rows'] = $allcount;
         $config['per_page'] = $rowperpage; 
@@ -86,18 +86,18 @@ class Pembelian extends MY_Controller {
         }
 
         //Save Headernya dulu;
-        $pemb['tanggal_pembelian'] = date('Y-m-d H:i:s');
-        $pemb['pic_pembelian']     = $this->session->userdata('capp_employee');
+        $pemb['tanggal_sortir'] = date('Y-m-d H:i:s');
+        $pemb['pic_sortir']     = $this->session->userdata('capp_employee');
         $pemb['total_all']         = str_replace(',', '', $total_all);
         $pemb['imaster_suplier']   = $imaster_suplier;
-        $this->db->insert('erp_produk.pembelian',$pemb);
-        $ipembelian = $this->db->insert_id();
+        $this->db->insert('erp_produk.sortir',$pemb);
+        $isortir = $this->db->insert_id();
 
         //Update Kodenya
-        $nomor = 'PMB'.str_pad($ipembelian, 5, "0", STR_PAD_LEFT); 
-        $updt['cNomor_pembelian']= $nomor;   
-        $this->db->where('ipembelian', $ipembelian);
-        $this->db->update('erp_produk.pembelian', $updt);
+        $nomor = 'PMB'.str_pad($isortir, 5, "0", STR_PAD_LEFT); 
+        $updt['cNomor_sortir']= $nomor;   
+        $this->db->where('isortir', $isortir);
+        $this->db->update('erp_produk.sortir', $updt);
 
         //Simpan Detailnya
         $arr_pem = array();
@@ -112,37 +112,37 @@ class Pembelian extends MY_Controller {
         } 
         foreach($this->input->post('imaster_jenis') as $k=>$v){ 
             $pemdet = array();
-            $pemdet['ipembelian'] = $ipembelian;  
+            $pemdet['isortir'] = $isortir;  
             $pemdet['imaster_jenis'] = $v;  
             $pemdet['total_harga'] = $arr_pem['total_harga'][$k];
             $pemdet['total_kg']    = $arr_pem['total_kg'][$k];
             $pemdet['harga_beli']  = $arr_pem['harga_beli'][$k];
-            $this->db->insert('erp_produk.pembelian_detail', $pemdet);  
+            $this->db->insert('erp_produk.sortir_detail', $pemdet);  
         }    
         exit;
     }
 
     function deleteid(){
-        $ipembelian = $this->input->post('id');
+        $isortir = $this->input->post('id');
         $keterangan_hapus = $this->input->post('name'); 
 
         $updt['keterangan_hapus'] = $keterangan_hapus;
         $updt['istatus_hapus']    = 1;
         $updt['pic_hapus']        = $this->session->userdata('capp_employee');
 
-        $this->db->where('ipembelian', $ipembelian);
-        $this->db->update('erp_produk.pembelian', $updt);
+        $this->db->where('isortir', $isortir);
+        $this->db->update('erp_produk.sortir', $updt);
     }
     
     function detail($id){
-        $ipembelian = $id;
-        $data['ipembelian'] = $id;
-        $data['url_back'] = base_url().'pembelian';
-        $data['row'] = $this->Pembelian_mod->get_by_id($id);
-        $data['res'] = $this->db->query('select * from erp_produk.pembelian_detail pd 
+        $isortir = $id;
+        $data['isortir'] = $id;
+        $data['url_back'] = base_url().'sortir';
+        $data['row'] = $this->Sortir_mod->get_by_id($id);
+        $data['res'] = $this->db->query('select * from erp_produk.sortir_detail pd 
                                             JOIN erp_produk.master_jenis j on 
                                             pd.imaster_jenis = j.imaster_jenis where 
-                                            pd.ipembelian="'.$id.'"')->result_array();
+                                            pd.isortir="'.$id.'"')->result_array();
         $this->template->load('core_template','detail_view',$data); 
     }
 

@@ -35,6 +35,7 @@ function _costume_delete(id,ti,lb,pl,res,url){
 				         data: "id="+id+"&name="+name, 
 				         success: function(response){
 				            $.alert(res);
+                            loadPagination(0);
 				         }
 				       }); 
                 }

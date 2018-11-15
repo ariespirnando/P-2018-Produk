@@ -4,7 +4,7 @@
      $('.nama_suplier').keyup(function(e) {  
       var config = {
           source: function(request, response) {
-              $.getJSON("<?php echo base_url() ?>/pembelian/supplier", { term: $('.nama_suplier').val()}, 
+              $.getJSON("<?php echo base_url() ?>/sortir/supplier", { term: $('.nama_suplier').val()}, 
                         response);
           },                     
           select: function(event, ui){
@@ -35,7 +35,7 @@
      function loadPagination(pagno){ 
        var q = $('.searchdata').val();
        $.ajax({
-         url: '<?php echo base_url()?>pembelian/loadRecord/'+pagno,
+         url: '<?php echo base_url()?>sortir/loadRecord/'+pagno,
          type: 'post',
          data: "q="+q,
          dataType: 'json',
@@ -49,7 +49,7 @@
 
      function loaddetail(){ 
        $.ajax({
-         url: '<?php echo base_url()?>pembelian/loaddetailform',
+         url: '<?php echo base_url()?>sortir/loaddetailform',
          type: 'post', 
          success: function(response){
             $('.reload_detail').html(response); 
@@ -70,13 +70,13 @@
 
         sno+=1;
         tr += "<td>"+ sno +"</td>";
-        tr += "<td>"+ result[index].cNomor_pembelian +"</td>"; 
-        tr += "<td>"+ result[index].nama_suplier +"</td>"; 
+        tr += "<td>"+ result[index].cNomor_sortir +"</td>"; 
+        tr += "<td>"+ result[index].cnama +"</td>"; 
         tr += "<td>"+ convert(result[index].total_all) +"</td>";  
-        tr += "<td>"+ result[index].tanggal_pembelian +"</td>"; 
+        tr += "<td>"+ result[index].tanggal_sortir +"</td>"; 
         
-        tr += "<td style='text-align:center;vertical-align:middle'><a href='<?php echo $detail?>"+result[index].ipembelian+"'><span class='btn btn-default'><i class='fa fa-folder-open'></i></span></a></td>";  
-        tr += "<td style='text-align:center;vertical-align:middle'><span onclick='deletedata("+ result[index].ipembelian +")' class='btn btn-danger'><i class='fa fa-trash'></i></span></td>"; 
+        tr += "<td style='text-align:center;vertical-align:middle'><a href='<?php echo $detail?>"+result[index].isortir+"'><span class='btn btn-default'><i class='fa fa-folder-open'></i></span></a></td>";  
+        tr += "<td style='text-align:center;vertical-align:middle'><span onclick='deletedata("+ result[index].isortir +")' class='btn btn-danger'><i class='fa fa-trash'></i></span></td>"; 
         tr += "</tr>";
         $('#dataload_ok tbody').append(tr); 
       }
@@ -107,7 +107,7 @@
       }else{
         var datas = $('#frm').serialize();
         $.ajax({
-         url: '<?php echo base_url()?>pembelian/savedata',
+         url: '<?php echo base_url()?>sortir/savedata',
          type: 'post', 
          data: datas,
          success: function(response){  
@@ -133,21 +133,17 @@
   
       var row_content = ''; 
         row_content  += '<tr>';
-        row_content  += '    <td style="width:5%;text-align: center;"><span class="tablepembelian_numasd">'+c+'</span></td>';
+        row_content  += '    <td style="width:5%;text-align: center;"><span class="tablesortir_numasd">'+c+'</span></td>';
         row_content  += '    <td style="width:15%;">'; 
         row_content  += '        <input type="text" class="form-control required_ nama_jenis_'+c+'" id="nama_jenis" name="nama_jenis[]" required="required" placeholder="Jenis Barang">';
         row_content  += '        <input type="hidden" class="form-control required_ imaster_jenis_'+c+'" id="imaster_jenis" name="imaster_jenis[]" required="required" placeholder="Jenis Barang">'; 
-        row_content  += '    </td>';  
-        row_content  += '    <td style="width:15%;">'; 
-        row_content  += '        <input type="text" maxlength="12" class="form-control required_angka harga_beli_'+c+' angka_'+c+' " id="harga_beli" name="harga_beli[]" required="required" placeholder="Harga Beli">';
-        row_content  += '    </td>';  
+        row_content  += '    </td>';   
+
         row_content  += '    <td style="width:5%;">'; 
         row_content  += '        <input type="text" maxlength="5" class="form-control required_angka total_kg_'+c+' angka_'+c+' " id="total_kg" name="total_kg[]" required="required" placeholder="Total Berat">';
         row_content  += '    </td>';  
-        row_content  += '    <td style="width:15%;">'; 
-        row_content  += '        <input type="text" readonly class="form-control required_angka total_harga_'+c+' angka_'+c+' harga_seluruh" id="total_harga" name="total_harga[]" required="required" placeholder="Total Harga">';
-        row_content  += '    </td>';   
-        row_content  += '    <td style="width:10%;text-align: center;"><span onClick="del_row(this, \'tablepembelian\')" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="false"></span></span></td>';
+        
+        row_content  += '    <td style="width:10%;text-align: center;"><span onClick="del_row(this, \'tablesortir\')" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="false"></span></span></td>';
         row_content  += '</tr>'; 
 
         $('table#'+table_id+' tbody tr:last').after(row_content);
@@ -192,7 +188,7 @@
        $('.nama_jenis_'+c).keyup(function(e) {  
           var config = {
               source: function(request, response) {
-                  $.getJSON("<?php echo base_url() ?>/pembelian/jenis", { term: $('.nama_jenis_'+c).val()}, 
+                  $.getJSON("<?php echo base_url() ?>/sortir/jenis", { term: $('.nama_jenis_'+c).val()}, 
                             response);
               },                     
               select: function(event, ui){
@@ -284,7 +280,7 @@
      $('.nama_jenis').keyup(function(e) {  
       var config = {
           source: function(request, response) {
-              $.getJSON("<?php echo base_url() ?>/pembelian/jenis", { term: $('.nama_jenis').val()}, 
+              $.getJSON("<?php echo base_url() ?>/sortir/jenis", { term: $('.nama_jenis').val()}, 
                         response);
           },                     
           select: function(event, ui){
@@ -311,7 +307,7 @@
       });  
     });
     function deletedata(i){ 
-      var url = '<?php echo base_url()?>pembelian/deleteid';
+      var url = '<?php echo base_url()?>sortir/deleteid';
       _costume_delete(i,'Hapus Data','Keterangan','Keterangan','Data Berhasil dihapus !!',url); 
     }
 

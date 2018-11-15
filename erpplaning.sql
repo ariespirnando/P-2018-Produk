@@ -79,37 +79,39 @@ CREATE TABLE IF NOT EXISTS `pembelian` (
   PRIMARY KEY (`ipembelian`),
   KEY `pic_pembelian` (`pic_pembelian`),
   KEY `imaster_suplier` (`imaster_suplier`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- Dumping data for table erp_produk.pembelian: ~7 rows (approximately)
+-- Dumping data for table erp_produk.pembelian: ~8 rows (approximately)
 /*!40000 ALTER TABLE `pembelian` DISABLE KEYS */;
 INSERT INTO `pembelian` (`ipembelian`, `cNomor_pembelian`, `tanggal_pembelian`, `pic_pembelian`, `total_all`, `imaster_suplier`, `istatus_hapus`, `keterangan_hapus`, `pic_hapus`) VALUES
-	(1, 'PMB00001', '2018-11-14 10:05:07', 'KRY00017', 600000, 5, 0, NULL, NULL),
-	(2, 'PMB00002', '2018-11-14 10:09:07', 'KRY00017', 6576000, 5, 0, NULL, NULL),
-	(3, 'PMB00003', '2018-11-14 10:43:32', 'KRY00017', 530000, 9, 0, NULL, NULL),
-	(4, 'PMB00004', '2018-11-14 11:00:05', 'KRY00017', 42000, 9, 0, NULL, NULL),
-	(5, 'PMB00005', '2018-11-14 11:00:33', 'KRY00017', 26500000, 7, 0, NULL, NULL),
-	(6, 'PMB00006', '2018-11-14 11:00:45', 'KRY00017', 106000, 7, 0, NULL, NULL),
-	(7, 'PMB00007', '2018-11-14 11:04:17', 'KRY00017', 264000, 5, 0, NULL, NULL);
+	(1, 'PMB00001', '2018-11-14 10:05:07', 'KRY00017', 600000, 5, 1, 'sad', 'KRY00017'),
+	(2, 'PMB00002', '2018-11-14 10:09:07', 'KRY00017', 6576000, 5, 1, '', 'KRY00017'),
+	(3, 'PMB00003', '2018-11-14 10:43:32', 'KRY00017', 530000, 9, 1, '', 'KRY00017'),
+	(4, 'PMB00004', '2018-11-14 11:00:05', 'KRY00017', 42000, 9, 1, 'sadad', 'KRY00017'),
+	(5, 'PMB00005', '2018-11-14 11:00:33', 'KRY00017', 26500000, 7, 1, 'hapus', 'KRY00017'),
+	(6, 'PMB00006', '2018-11-14 11:00:45', 'KRY00017', 106000, 7, 1, '', 'KRY00017'),
+	(7, 'PMB00007', '2018-11-14 11:04:17', 'KRY00017', 264000, 5, 1, '', 'KRY00017'),
+	(8, 'PMB00008', '2018-11-14 16:30:35', 'KRY00017', 5300000, 5, 1, '', 'KRY00017'),
+	(9, 'PMB00009', '2018-11-15 16:15:04', 'KRY00017', 2333100, 5, 1, 'hapus', 'KRY00017');
 /*!40000 ALTER TABLE `pembelian` ENABLE KEYS */;
 
 -- Dumping structure for table erp_produk.pembelian_detail
 CREATE TABLE IF NOT EXISTS `pembelian_detail` (
-  `pembelian_detail` int(11) NOT NULL AUTO_INCREMENT,
+  `ipembelian_detail` int(11) NOT NULL AUTO_INCREMENT,
   `ipembelian` int(11) NOT NULL,
   `imaster_jenis` int(11) NOT NULL,
   `total_harga` float NOT NULL DEFAULT '0',
   `harga_beli` float NOT NULL DEFAULT '0',
   `total_kg` float NOT NULL DEFAULT '0',
-  PRIMARY KEY (`pembelian_detail`),
+  PRIMARY KEY (`ipembelian_detail`),
   KEY `ipembelian` (`ipembelian`),
   KEY `imaster_jenis` (`imaster_jenis`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- Dumping data for table erp_produk.pembelian_detail: ~11 rows (approximately)
 /*!40000 ALTER TABLE `pembelian_detail` DISABLE KEYS */;
-INSERT INTO `pembelian_detail` (`pembelian_detail`, `ipembelian`, `imaster_jenis`, `total_harga`, `harga_beli`, `total_kg`) VALUES
-	(1, 1, 3, 420000, 2100, 200),
+INSERT INTO `pembelian_detail` (`ipembelian_detail`, `ipembelian`, `imaster_jenis`, `total_harga`, `harga_beli`, `total_kg`) VALUES
+	(1, 1, 1, 420000, 4500, 200),
 	(2, 1, 1, 180000, 4500, 40),
 	(3, 2, 1, 4050000, 4500, 900),
 	(4, 2, 2, 636000, 5300, 120),
@@ -119,8 +121,69 @@ INSERT INTO `pembelian_detail` (`pembelian_detail`, `ipembelian`, `imaster_jenis
 	(8, 5, 2, 26500000, 5300, 5000),
 	(9, 6, 2, 106000, 5300, 20),
 	(10, 7, 2, 159000, 5300, 30),
-	(11, 7, 3, 105000, 2100, 50);
+	(11, 7, 3, 105000, 2100, 50),
+	(12, 8, 2, 5300000, 5300, 1000),
+	(13, 9, 3, 2333100, 2100, 1111);
 /*!40000 ALTER TABLE `pembelian_detail` ENABLE KEYS */;
+
+-- Dumping structure for table erp_produk.sortir
+CREATE TABLE IF NOT EXISTS `sortir` (
+  `isortir` int(11) NOT NULL AUTO_INCREMENT,
+  `cNomor_sortir` varchar(50) DEFAULT NULL,
+  `tanggal_sortir` datetime DEFAULT NULL,
+  `capp_employee` varchar(50) DEFAULT NULL COMMENT 'Join ERPLANING APP_EMPLOYEE',
+  `total_all` float DEFAULT NULL,
+  `imaster_suplier` int(11) DEFAULT NULL,
+  `istatus_hapus` int(11) DEFAULT '0',
+  `keterangan_hapus` text,
+  `pic_hapus` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`isortir`),
+  KEY `pic_pembelian` (`capp_employee`),
+  KEY `imaster_suplier` (`imaster_suplier`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table erp_produk.sortir: ~9 rows (approximately)
+/*!40000 ALTER TABLE `sortir` DISABLE KEYS */;
+INSERT INTO `sortir` (`isortir`, `cNomor_sortir`, `tanggal_sortir`, `capp_employee`, `total_all`, `imaster_suplier`, `istatus_hapus`, `keterangan_hapus`, `pic_hapus`) VALUES
+	(1, 'PMB00001', '2018-11-14 10:05:07', 'KRY00017', 600000, 5, 1, 'sad', 'KRY00017'),
+	(2, 'PMB00002', '2018-11-14 10:09:07', 'KRY00017', 6576000, 5, 1, '', 'KRY00017'),
+	(3, 'PMB00003', '2018-11-14 10:43:32', 'KRY00017', 530000, 9, 1, '', 'KRY00017'),
+	(4, 'PMB00004', '2018-11-14 11:00:05', 'KRY00017', 42000, 9, 1, 'sadad', 'KRY00017'),
+	(5, 'PMB00005', '2018-11-14 11:00:33', 'KRY00017', 26500000, 7, 1, 'hapus', 'KRY00017'),
+	(6, 'PMB00006', '2018-11-14 11:00:45', 'KRY00017', 106000, 7, 1, '', 'KRY00017'),
+	(7, 'PMB00007', '2018-11-14 11:04:17', 'KRY00017', 264000, 5, 1, '', 'KRY00017'),
+	(8, 'PMB00008', '2018-11-14 16:30:35', 'KRY00017', 5300000, 5, 1, '', 'KRY00017'),
+	(9, 'PMB00009', '2018-11-15 16:15:04', 'KRY00017', 2333100, 5, 1, 'hapus', 'KRY00017');
+/*!40000 ALTER TABLE `sortir` ENABLE KEYS */;
+
+-- Dumping structure for table erp_produk.sortir_detail
+CREATE TABLE IF NOT EXISTS `sortir_detail` (
+  `isortir_detail` int(11) NOT NULL AUTO_INCREMENT,
+  `isortir` int(11) NOT NULL,
+  `imaster_jenis` int(11) NOT NULL,
+  `total_kg` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`isortir_detail`),
+  KEY `ipembelian` (`isortir`),
+  KEY `imaster_jenis` (`imaster_jenis`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table erp_produk.sortir_detail: ~13 rows (approximately)
+/*!40000 ALTER TABLE `sortir_detail` DISABLE KEYS */;
+INSERT INTO `sortir_detail` (`isortir_detail`, `isortir`, `imaster_jenis`, `total_kg`) VALUES
+	(1, 1, 1, 200),
+	(2, 1, 1, 40),
+	(3, 2, 1, 900),
+	(4, 2, 2, 120),
+	(5, 2, 3, 900),
+	(6, 3, 2, 100),
+	(7, 4, 3, 20),
+	(8, 5, 2, 5000),
+	(9, 6, 2, 20),
+	(10, 7, 2, 30),
+	(11, 7, 3, 50),
+	(12, 8, 2, 1000),
+	(13, 9, 3, 1111);
+/*!40000 ALTER TABLE `sortir_detail` ENABLE KEYS */;
 
 
 -- Dumping database structure for erplaning
