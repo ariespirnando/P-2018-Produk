@@ -38,15 +38,16 @@ class Sortir extends MY_Controller {
         $data['row'] = $rowno; 
         echo json_encode($data); 
     }
-    function supplier(){
+    function karyawan(){
         $key = $this->input->get("term");     
         $data = array();
-        $sql = "SELECT m.imaster_suplier, m.nama_suplier FROM erp_produk.master_suplier m where m.nama_suplier LIKE '%".$key."%'";   
+        $sql = "SELECT ae.capp_employee, ae.cnama FROM erplaning.app_employee ae where ae.capp_employee LIKE '%".$key."%' OR ae.cnama LIKE '%".$key."%'"; 
         $que = $this->db->query($sql)->result_array();
+
         if(!empty($que)){
             foreach ($que as $line) {  
-                $row['id']        = trim($line['imaster_suplier']);
-                $row['value']     = trim($line['nama_suplier']); 
+                $row['id']        = trim($line['capp_employee']);
+                $row['value']     = trim($line['capp_employee']).' - '.trim($line['cnama']); 
                 array_push($data, $row);
             }
         } 
@@ -74,49 +75,34 @@ class Sortir extends MY_Controller {
     }
     
     function savedata(){ 
-        $imaster_suplier = $this->input->post('imaster_suplier');
-        $nama_suplier    = $this->input->post('nama_suplier');
+        $capp_employee = $this->input->post('capp_employee'); 
         $total_all       = $this->input->post('total_all');
-
-        if($imaster_suplier=="" || $imaster_suplier==0){
-            //Insert Suplier Dulu
-            $sup['nama_suplier'] = strtoupper($nama_suplier);
-            $this->db->insert('erp_produk.master_suplier',$sup);
-            $imaster_suplier = $this->db->insert_id();
-        }
-
+ 
         //Save Headernya dulu;
         $pemb['tanggal_sortir'] = date('Y-m-d H:i:s');
         $pemb['pic_sortir']     = $this->session->userdata('capp_employee');
         $pemb['total_all']         = str_replace(',', '', $total_all);
-        $pemb['imaster_suplier']   = $imaster_suplier;
+        $pemb['capp_employee']   = $capp_employee;
         $this->db->insert('erp_produk.sortir',$pemb);
         $isortir = $this->db->insert_id();
 
         //Update Kodenya
-        $nomor = 'PMB'.str_pad($isortir, 5, "0", STR_PAD_LEFT); 
+        $nomor = 'SRT'.str_pad($isortir, 5, "0", STR_PAD_LEFT); 
         $updt['cNomor_sortir']= $nomor;   
         $this->db->where('isortir', $isortir);
         $this->db->update('erp_produk.sortir', $updt);
 
         //Simpan Detailnya
         $arr_pem = array();
-        foreach($this->input->post('total_harga') as $k=>$v){ 
-            $arr_pem['total_harga'][$k] = str_replace(',', '',$v);
-        } 
-        foreach($this->input->post('harga_beli') as $k=>$v){ 
-            $arr_pem['harga_beli'][$k] = str_replace(',', '',$v);
-        } 
+        
         foreach($this->input->post('total_kg') as $k=>$v){ 
             $arr_pem['total_kg'][$k] = str_replace(',', '',$v);
         } 
         foreach($this->input->post('imaster_jenis') as $k=>$v){ 
             $pemdet = array();
             $pemdet['isortir'] = $isortir;  
-            $pemdet['imaster_jenis'] = $v;  
-            $pemdet['total_harga'] = $arr_pem['total_harga'][$k];
-            $pemdet['total_kg']    = $arr_pem['total_kg'][$k];
-            $pemdet['harga_beli']  = $arr_pem['harga_beli'][$k];
+            $pemdet['imaster_jenis'] = $v;   
+            $pemdet['total_kg']    = $arr_pem['total_kg'][$k]; 
             $this->db->insert('erp_produk.sortir_detail', $pemdet);  
         }    
         exit;

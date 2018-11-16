@@ -21,10 +21,10 @@ class Sortir_mod extends CI_Model {
     }
     
     function total_rows($q = NULL) {   
-        $this->db->join('erp_produk.master_suplier','master_suplier.imaster_suplier = sortir.imaster_suplier','inner');  
+        $this->db->join('erplaning.app_employee','app_employee.capp_employee = sortir.capp_employee','inner');  
         $this->db->where_not_in('sortir.istatus_hapus', 1); 
         $this->db->group_start();
-        $this->db->like('master_suplier.nama_suplier', $q); 
+        $this->db->like('app_employee.cnama', $q); 
         $this->db->like('sortir.total_all', $q); 
         $this->db->like('sortir.cNomor_sortir', $q); 
         $this->db->group_end();
@@ -35,10 +35,10 @@ class Sortir_mod extends CI_Model {
 
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL) {   
-        $this->db->join('erp_produk.master_suplier','master_suplier.imaster_suplier = sortir.imaster_suplier','inner');  
+        $this->db->join('erplaning.app_employee','app_employee.capp_employee = sortir.capp_employee','inner');  
         $this->db->where_not_in('sortir.istatus_hapus', 1); 
         $this->db->group_start();
-        $this->db->like('master_suplier.nama_suplier', $q); 
+        $this->db->like('app_employee.cnama', $q); 
         $this->db->like('sortir.total_all', $q); 
         $this->db->like('sortir.cNomor_sortir', $q);  
         $this->db->group_end();

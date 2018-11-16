@@ -16,7 +16,7 @@
         </td> 
        
         <td style="width:5%;"> 
-            <input type="text" maxlength="5" class="form-control total_kg angka required_angka" id="total_kg" name="total_kg[]" required="required" placeholder="Total Berat" value="0">
+            <input type="text" maxlength="5" style="text-align:right" class="form-control total_seluruh total_kg angka required_angka" id="total_kg" name="total_kg[]" required="required" placeholder="Total Berat" value="0">
         </td> 
          
         <td style="width:10%;text-align: center;"><span onClick="del_row(this,'tablesortir')" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="false"></span></span></td>
@@ -27,7 +27,7 @@
     <td colspan="2" align="left">   
     </td>
     <td>   
-      <input type="text" class="form-control total_all angka required_angka" readonly id="total_all" name="total_all" required="required" placeholder="Total Seluruh">
+      <input type="text" style="text-align:right" class="form-control total_all angka required_angka" readonly id="total_all" name="total_all" required="required" placeholder="Total Seluruh">
     </td>
     <td>   
     </td>

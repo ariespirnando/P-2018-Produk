@@ -54,15 +54,19 @@ CREATE TABLE IF NOT EXISTS `master_suplier` (
   `imaster_suplier` int(11) NOT NULL AUTO_INCREMENT,
   `nama_suplier` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`imaster_suplier`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
--- Dumping data for table erp_produk.master_suplier: ~3 rows (approximately)
+-- Dumping data for table erp_produk.master_suplier: ~8 rows (approximately)
 /*!40000 ALTER TABLE `master_suplier` DISABLE KEYS */;
 INSERT INTO `master_suplier` (`imaster_suplier`, `nama_suplier`) VALUES
 	(5, 'IWAN BOPENG'),
 	(6, 'CECENG SUJANA'),
 	(7, 'SANDIAGA UNO'),
-	(9, 'AINI RAHMAYANTI');
+	(9, 'AINI RAHMAYANTI'),
+	(10, ''),
+	(11, ''),
+	(12, ''),
+	(13, '');
 /*!40000 ALTER TABLE `master_suplier` ENABLE KEYS */;
 
 -- Dumping structure for table erp_produk.pembelian
@@ -81,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `pembelian` (
   KEY `imaster_suplier` (`imaster_suplier`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- Dumping data for table erp_produk.pembelian: ~8 rows (approximately)
+-- Dumping data for table erp_produk.pembelian: ~7 rows (approximately)
 /*!40000 ALTER TABLE `pembelian` DISABLE KEYS */;
 INSERT INTO `pembelian` (`ipembelian`, `cNomor_pembelian`, `tanggal_pembelian`, `pic_pembelian`, `total_all`, `imaster_suplier`, `istatus_hapus`, `keterangan_hapus`, `pic_hapus`) VALUES
 	(1, 'PMB00001', '2018-11-14 10:05:07', 'KRY00017', 600000, 5, 1, 'sad', 'KRY00017'),
@@ -133,27 +137,19 @@ CREATE TABLE IF NOT EXISTS `sortir` (
   `tanggal_sortir` datetime DEFAULT NULL,
   `capp_employee` varchar(50) DEFAULT NULL COMMENT 'Join ERPLANING APP_EMPLOYEE',
   `total_all` float DEFAULT NULL,
-  `imaster_suplier` int(11) DEFAULT NULL,
+  `pic_sortir` varchar(50) DEFAULT NULL,
   `istatus_hapus` int(11) DEFAULT '0',
   `keterangan_hapus` text,
   `pic_hapus` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`isortir`),
-  KEY `pic_pembelian` (`capp_employee`),
-  KEY `imaster_suplier` (`imaster_suplier`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+  KEY `pic_pembelian` (`capp_employee`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table erp_produk.sortir: ~9 rows (approximately)
+-- Dumping data for table erp_produk.sortir: ~0 rows (approximately)
 /*!40000 ALTER TABLE `sortir` DISABLE KEYS */;
-INSERT INTO `sortir` (`isortir`, `cNomor_sortir`, `tanggal_sortir`, `capp_employee`, `total_all`, `imaster_suplier`, `istatus_hapus`, `keterangan_hapus`, `pic_hapus`) VALUES
-	(1, 'PMB00001', '2018-11-14 10:05:07', 'KRY00017', 600000, 5, 1, 'sad', 'KRY00017'),
-	(2, 'PMB00002', '2018-11-14 10:09:07', 'KRY00017', 6576000, 5, 1, '', 'KRY00017'),
-	(3, 'PMB00003', '2018-11-14 10:43:32', 'KRY00017', 530000, 9, 1, '', 'KRY00017'),
-	(4, 'PMB00004', '2018-11-14 11:00:05', 'KRY00017', 42000, 9, 1, 'sadad', 'KRY00017'),
-	(5, 'PMB00005', '2018-11-14 11:00:33', 'KRY00017', 26500000, 7, 1, 'hapus', 'KRY00017'),
-	(6, 'PMB00006', '2018-11-14 11:00:45', 'KRY00017', 106000, 7, 1, '', 'KRY00017'),
-	(7, 'PMB00007', '2018-11-14 11:04:17', 'KRY00017', 264000, 5, 1, '', 'KRY00017'),
-	(8, 'PMB00008', '2018-11-14 16:30:35', 'KRY00017', 5300000, 5, 1, '', 'KRY00017'),
-	(9, 'PMB00009', '2018-11-15 16:15:04', 'KRY00017', 2333100, 5, 1, 'hapus', 'KRY00017');
+INSERT INTO `sortir` (`isortir`, `cNomor_sortir`, `tanggal_sortir`, `capp_employee`, `total_all`, `pic_sortir`, `istatus_hapus`, `keterangan_hapus`, `pic_hapus`) VALUES
+	(1, 'SRT00001', '2018-11-16 14:33:06', 'KRY00002', 160, 'KRY00017', 1, '', 'KRY00017'),
+	(2, 'SRT00002', '2018-11-16 14:38:48', 'KRY00017', 4520, 'KRY00017', 0, NULL, NULL);
 /*!40000 ALTER TABLE `sortir` ENABLE KEYS */;
 
 -- Dumping structure for table erp_produk.sortir_detail
@@ -165,24 +161,16 @@ CREATE TABLE IF NOT EXISTS `sortir_detail` (
   PRIMARY KEY (`isortir_detail`),
   KEY `ipembelian` (`isortir`),
   KEY `imaster_jenis` (`imaster_jenis`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table erp_produk.sortir_detail: ~13 rows (approximately)
+-- Dumping data for table erp_produk.sortir_detail: ~0 rows (approximately)
 /*!40000 ALTER TABLE `sortir_detail` DISABLE KEYS */;
 INSERT INTO `sortir_detail` (`isortir_detail`, `isortir`, `imaster_jenis`, `total_kg`) VALUES
-	(1, 1, 1, 200),
-	(2, 1, 1, 40),
-	(3, 2, 1, 900),
-	(4, 2, 2, 120),
-	(5, 2, 3, 900),
-	(6, 3, 2, 100),
-	(7, 4, 3, 20),
-	(8, 5, 2, 5000),
-	(9, 6, 2, 20),
-	(10, 7, 2, 30),
-	(11, 7, 3, 50),
-	(12, 8, 2, 1000),
-	(13, 9, 3, 1111);
+	(1, 1, 2, 20),
+	(2, 1, 3, 110),
+	(3, 1, 4, 30),
+	(4, 2, 2, 4500),
+	(5, 2, 3, 20);
 /*!40000 ALTER TABLE `sortir_detail` ENABLE KEYS */;
 
 

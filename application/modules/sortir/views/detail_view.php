@@ -12,20 +12,18 @@
    <div class="form-group">
       <label>Pekerja Lepas</label>
       <?php 
-        $sql = "select m.nama_suplier from erp_produk.master_suplier m where m.imaster_suplier='".$row->imaster_suplier."'";
+        $sql = "SELECT ae.capp_employee, ae.cnama FROM erplaning.app_employee ae where ae.capp_employee='".$row->capp_employee."'";
         $dt  = $this->db->query($sql)->row();
       ?>
-      <input type="text" class="form-control" disabled placeholder="" value="<?php echo $dt->nama_suplier ?>">
+      <input type="text" class="form-control" disabled placeholder="" value="<?php echo $dt->capp_employee.' - '.$dt->cnama ?>">
   </div>
 
   <table id="tablesortir" class="table table-striped table-bordered tablesortir" width="100%" cellspacing="0">
    <thead>
       <tr> 
           <td style="width:5%">No</td> 
-          <th style="width:20%;">Jenis Barang</th> 
-          <th style="width:20%;">Harga (Rp/Kg)</th>  
-          <th style="width:20%;">Total (Kg)</th>   
-          <th style="width:20%;">Total Harga</th>   
+          <th style="width:20%;">Jenis Barang</th>  
+          <th style="width:20%;">Total (Kg)</th>    
       </tr> 
   </thead>
   <tbody>
@@ -39,15 +37,11 @@
               <td style="width:15%;">  
                   <input readonly type="text" class="form-control nama_jenis required_" id="nama_jenis" name="nama_jenis[]" required="required" placeholder="Jenis Barang" value="<?php echo $val['nama_jenis']?>"> 
               </td> 
-              <td style="width:15%;">  
-                <input type="text" readonly maxlength="12" class="form-control harga_beli angka required_angka" id="harga_beli" name="harga_beli[]" required="required" placeholder="Harga Beli" value="<?php echo number_format($val['harga_beli']) ?>">
-              </td> 
+              
               <td style="width:5%;"> 
                   <input type="text" readonly maxlength="5" class="form-control total_kg angka required_angka" id="total_kg" name="total_kg[]" required="required" placeholder="Total Berat" value="<?php echo number_format($val['total_kg']) ?>">
               </td> 
-              <td style="width:15%;"> 
-                  <input type="text" class="form-control total_harga harga_seluruh angka required_angka" readonly id="total_harga" name="total_harga[]" required="required" placeholder="Total Harga" value="<?php echo number_format($val['total_harga']) ?>">
-              </td>  
+               
           </tr> 
         <?php 
       }
@@ -55,7 +49,7 @@
   </tbody>
   <tfoot>
   <tr>
-    <td colspan="4" align="left">   
+    <td colspan="2" align="left">   
     </td>
     <td>   
       <input type="text" class="form-control total_all angka required_angka" readonly id="total_all" name="total_all" required="required" placeholder="Total Seluruh" value="<?php echo number_format($row->total_all) ?>">

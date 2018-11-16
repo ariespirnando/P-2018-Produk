@@ -1,21 +1,33 @@
 <script type="text/javascript">
 
      //Search SUpplier
-     $('.nama_suplier').keyup(function(e) {  
+     $('.nama_karyawan').keyup(function(e) {  
       var config = {
           source: function(request, response) {
-              $.getJSON("<?php echo base_url() ?>/sortir/supplier", { term: $('.nama_suplier').val()}, 
+              $.getJSON("<?php echo base_url() ?>/sortir/karyawan", { term: $('.nama_karyawan').val()}, 
                         response);
           },                     
           select: function(event, ui){
-              $('.imaster_suplier').val(ui.item.id);
-              $('.nama_suplier').val(ui.item.value);  
+              $('.capp_employee').val(ui.item.id);
+              $('.nama_karyawan').val(ui.item.value);  
               return false;                           
           },
           minLength: 2,
           autoFocus: true,
           };  
-          $('.nama_suplier').autocomplete(config);   
+          $('.nama_karyawan').autocomplete(config);   
+          $(this).keypress(function(e){
+          if(e.which != 13 ) {
+                if(e.which != 9 ) {
+                 $('.capp_employee').val('');
+                }
+            }           
+          });
+          $(this).blur(function(){
+              if($('.capp_employee').val() == '') {
+                  $(this).val('');
+              }           
+          });  
     });
 
      //Search Click
@@ -140,7 +152,7 @@
         row_content  += '    </td>';   
 
         row_content  += '    <td style="width:5%;">'; 
-        row_content  += '        <input type="text" maxlength="5" class="form-control required_angka total_kg_'+c+' angka_'+c+' " id="total_kg" name="total_kg[]" required="required" placeholder="Total Berat">';
+        row_content  += '        <input type="text" maxlength="5" style="text-align:right" class="form-control required_angka total_seluruh total_kg_'+c+' angka_'+c+' " id="total_kg" name="total_kg[]" required="required" placeholder="Total Berat">';
         row_content  += '    </td>';  
         
         row_content  += '    <td style="width:10%;text-align: center;"><span onClick="del_row(this, \'tablesortir\')" class="btn btn-danger"><span class="glyphicon glyphicon-trash" aria-hidden="false"></span></span></td>';
@@ -153,33 +165,15 @@
         $(".total_kg_"+c).val(0);
 
       $(".angka_"+c).css('text-align','right'); 
-      $('.harga_beli_'+c).keyup(function(e) {   
-        var numbers = /^[0-9,.]+$/;
-        if(this.value.match(numbers)){
-          var harga = join($(this).val());
-          var kg    = join($(".total_kg_"+c).val()); 
-          var hitung= harga * kg;
-          $('.total_harga_'+c).val(convert(hitung));    
-          $(this).val(convert(harga)); 
-        }else{
-          _costume_alert('Info', 'Hanya Huruf');
-           $(this).val(convert(0));
-           $('.total_harga_'+c).val(0);
-        }
-        hitungseluruh()
-       });
+       
        $('.total_kg_'+c).keyup(function(e) {   
          var numbers = /^[0-9,.]+$/;
-         if(this.value.match(numbers)){
-           var harga = join($(".harga_beli_"+c).val());
-           var kg    = join($(this).val());  
-           var hitung= harga * kg;
-           $('.total_harga_'+c).val(convert(hitung));  
+         if(this.value.match(numbers)){ 
+           var kg    = join($(this).val());   
            $(this).val(convert(kg));
          }else{
           _costume_alert('Info', 'Hanya Huruf');
-           $(this).val(convert(0));
-           $('.total_harga_'+c).val(0); 
+           $(this).val(convert(0)); 
          }
          hitungseluruh() 
        });
@@ -193,8 +187,7 @@
               },                     
               select: function(event, ui){
                   $('.imaster_jenis_'+c).val(ui.item.id);
-                  $('.nama_jenis_'+c).val(ui.item.value);  
-                  $('.harga_beli_'+c).val(ui.item.harga); 
+                  $('.nama_jenis_'+c).val(ui.item.value);   
                   return false;                           
               },
               minLength: 2,
@@ -226,33 +219,14 @@
          }
       }  
  
-     $('.harga_beli').keyup(function(event) {  
-       var numbers = /^[0-9,.]+$/;
-        if(this.value.match(numbers)){
-           var harga = join($(this).val());
-           var kg    = join($(".total_kg").val()); 
-           var hitung= harga * kg;
-           $('.total_harga').val(convert(hitung));    
-           $(this).val(convert(harga)); 
-        }else{
-           _costume_alert('Info', 'Hanya Huruf');
-           $(this).val(convert(0)); 
-           $('.total_harga').val(0);    
-        }
-        hitungseluruh() 
-     });
      $('.total_kg').keyup(function(e) {  
         var numbers = /^[0-9,.]+$/;
-        if(this.value.match(numbers)){
-         var harga = join($(".harga_beli").val());
-         var kg    = join($(this).val());  
-         var hitung= harga * kg;
-         $('.total_harga').val(convert(hitung));  
+        if(this.value.match(numbers)){ 
+         var kg    = join($(this).val());   
          $(this).val(convert(kg));
         }else{
           _costume_alert('Info', 'Hanya Huruf');
-          $(this).val(convert(0)); 
-          $('.total_harga').val(0);  
+          $(this).val(convert(0));  
         }
         hitungseluruh() 
      });
@@ -266,7 +240,7 @@
      }
      function hitungseluruh(){   
       var total = 0;
-      $(".harga_seluruh").each(function() {
+      $(".total_seluruh").each(function() {
           var str    = this.value;  
           var values = join(str);
           if(values !=0 || values !=''){ 
@@ -275,7 +249,7 @@
       }); 
       $('.total_all').val(convert(total));
      } 
-     $(".angka").css('text-align','right');  
+ 
 
      $('.nama_jenis').keyup(function(e) {  
       var config = {
@@ -285,8 +259,7 @@
           },                     
           select: function(event, ui){
               $('.imaster_jenis').val(ui.item.id);
-              $('.nama_jenis').val(ui.item.value);  
-              $('.harga_beli').val(ui.item.harga);   
+              $('.nama_jenis').val(ui.item.value);   
               return false;                           
           },
           minLength: 2,
