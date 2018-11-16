@@ -145,7 +145,7 @@ CREATE TABLE IF NOT EXISTS `sortir` (
   KEY `pic_pembelian` (`capp_employee`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table erp_produk.sortir: ~0 rows (approximately)
+-- Dumping data for table erp_produk.sortir: ~2 rows (approximately)
 /*!40000 ALTER TABLE `sortir` DISABLE KEYS */;
 INSERT INTO `sortir` (`isortir`, `cNomor_sortir`, `tanggal_sortir`, `capp_employee`, `total_all`, `pic_sortir`, `istatus_hapus`, `keterangan_hapus`, `pic_hapus`) VALUES
 	(1, 'SRT00001', '2018-11-16 14:33:06', 'KRY00002', 160, 'KRY00017', 1, '', 'KRY00017'),
@@ -163,7 +163,7 @@ CREATE TABLE IF NOT EXISTS `sortir_detail` (
   KEY `imaster_jenis` (`imaster_jenis`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table erp_produk.sortir_detail: ~0 rows (approximately)
+-- Dumping data for table erp_produk.sortir_detail: ~5 rows (approximately)
 /*!40000 ALTER TABLE `sortir_detail` DISABLE KEYS */;
 INSERT INTO `sortir_detail` (`isortir_detail`, `isortir`, `imaster_jenis`, `total_kg`) VALUES
 	(1, 1, 2, 20),
@@ -172,6 +172,49 @@ INSERT INTO `sortir_detail` (`isortir_detail`, `isortir`, `imaster_jenis`, `tota
 	(4, 2, 2, 4500),
 	(5, 2, 3, 20);
 /*!40000 ALTER TABLE `sortir_detail` ENABLE KEYS */;
+
+-- Dumping structure for table erp_produk.timbang
+CREATE TABLE IF NOT EXISTS `timbang` (
+  `itimbang` int(11) NOT NULL AUTO_INCREMENT,
+  `cNomor_timbang` varchar(50) DEFAULT NULL,
+  `tanggal_timbang` datetime DEFAULT NULL,
+  `capp_employee` varchar(50) DEFAULT NULL COMMENT 'Join ERPLANING APP_EMPLOYEE',
+  `total_all` float DEFAULT NULL,
+  `pic_timbang` varchar(50) DEFAULT NULL,
+  `istatus_hapus` int(11) DEFAULT '0',
+  `keterangan_hapus` text,
+  `pic_hapus` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`itimbang`),
+  KEY `pic_pembelian` (`capp_employee`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table erp_produk.timbang: ~2 rows (approximately)
+/*!40000 ALTER TABLE `timbang` DISABLE KEYS */;
+INSERT INTO `timbang` (`itimbang`, `cNomor_timbang`, `tanggal_timbang`, `capp_employee`, `total_all`, `pic_timbang`, `istatus_hapus`, `keterangan_hapus`, `pic_hapus`) VALUES
+	(1, 'SRT00001', '2018-11-16 14:33:06', 'KRY00002', 160, 'KRY00017', 1, '', 'KRY00017'),
+	(2, 'SRT00002', '2018-11-16 14:38:48', 'KRY00017', 4520, 'KRY00017', 0, NULL, NULL);
+/*!40000 ALTER TABLE `timbang` ENABLE KEYS */;
+
+-- Dumping structure for table erp_produk.timbang_detail
+CREATE TABLE IF NOT EXISTS `timbang_detail` (
+  `itimbang_detail` int(11) NOT NULL AUTO_INCREMENT,
+  `itimbang` int(11) NOT NULL,
+  `imaster_jenis` int(11) NOT NULL,
+  `total_kg` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`itimbang_detail`),
+  KEY `ipembelian` (`itimbang`),
+  KEY `imaster_jenis` (`imaster_jenis`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table erp_produk.timbang_detail: ~5 rows (approximately)
+/*!40000 ALTER TABLE `timbang_detail` DISABLE KEYS */;
+INSERT INTO `timbang_detail` (`itimbang_detail`, `itimbang`, `imaster_jenis`, `total_kg`) VALUES
+	(1, 1, 2, 20),
+	(2, 1, 3, 110),
+	(3, 1, 4, 30),
+	(4, 2, 2, 4500),
+	(5, 2, 3, 20);
+/*!40000 ALTER TABLE `timbang_detail` ENABLE KEYS */;
 
 
 -- Dumping database structure for erplaning
