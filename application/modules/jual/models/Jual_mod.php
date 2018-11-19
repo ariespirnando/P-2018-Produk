@@ -3,8 +3,8 @@
 class Pembelian_mod extends CI_Model {    
 
     // get all
-    public $table = 'erp_produk.pembelian';
-    public $id = 'ipembelian';
+    public $table = 'erp_produk.jual';
+    public $id = 'ijual';
     public $order = 'DESC';
 
     function get_all()
@@ -21,12 +21,12 @@ class Pembelian_mod extends CI_Model {
     }
     
     function total_rows($q = NULL) {   
-        $this->db->join('erp_produk.master_suplier','master_suplier.imaster_suplier = pembelian.imaster_suplier','inner');  
-        $this->db->where_not_in('pembelian.istatus_hapus', 1); 
+        $this->db->join('erp_produk.master_buyer','master_buyer.imaster_buyer = jual.imaster_buyer','inner');  
+        $this->db->where_not_in('jual.istatus_hapus', 1); 
         $this->db->group_start();
-        $this->db->like('master_suplier.nama_suplier', $q); 
-        $this->db->like('pembelian.total_all', $q); 
-        $this->db->like('pembelian.cNomor_pembelian', $q); 
+        $this->db->like('master_buyer.nama_buyer', $q); 
+        $this->db->like('jual.total_all', $q); 
+        $this->db->like('jual.cNomor_jual', $q); 
         $this->db->group_end();
         $this->db->order_by($this->id, $this->order);
         $this->db->from($this->table);
@@ -35,12 +35,12 @@ class Pembelian_mod extends CI_Model {
 
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL) {   
-        $this->db->join('erp_produk.master_suplier','master_suplier.imaster_suplier = pembelian.imaster_suplier','inner');  
-        $this->db->where_not_in('pembelian.istatus_hapus', 1); 
+        $this->db->join('erp_produk.master_buyer','master_buyer.imaster_buyer = jual.imaster_buyer','inner');  
+        $this->db->where_not_in('jual.istatus_hapus', 1); 
         $this->db->group_start();
-        $this->db->like('master_suplier.nama_suplier', $q); 
-        $this->db->like('pembelian.total_all', $q); 
-        $this->db->like('pembelian.cNomor_pembelian', $q);  
+        $this->db->like('master_buyer.nama_buyer', $q); 
+        $this->db->like('jual.total_all', $q); 
+        $this->db->like('jual.cNomor_jual', $q);  
         $this->db->group_end();
         $this->db->order_by($this->id, $this->order);
         $this->db->limit($limit, $start);

@@ -1,19 +1,19 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Pembelian extends MY_Controller {  
+class Jual extends MY_Controller {  
     function __construct() {
         parent::__construct();
         if(!$this->session->userdata('loggedin')){   
             redirect('auth');
         } 
-        $this->load->model(array('Pembelian_mod'));
+        $this->load->model(array('Jual_mod'));
         $this->load->library('pagination');
     }
 
 	public function index(){ 
         $data = array();
-        $data['detail'] = base_url().'pembelian/detail/';
+        $data['detail'] = base_url().'jual/detail/';
         $this->template->load('core_template','index',$data);
     }
     function loaddetailform(){
@@ -25,9 +25,9 @@ class Pembelian extends MY_Controller {
         if($rowno != 0){
           $rowno = ($rowno-1) * $rowperpage;
         } 
-        $allcount = $this->Pembelian_mod->total_rows($q); 
-        $users_record = $this->Pembelian_mod->get_limit_data($rowperpage, $rowno, $q); 
-        $config['base_url'] = base_url().'Pembelian/loadRecord';
+        $allcount = $this->Jual_mod->total_rows($q); 
+        $users_record = $this->Jual_mod->get_limit_data($rowperpage, $rowno, $q); 
+        $config['base_url'] = base_url().'Jual/loadRecord';
         $config['use_page_numbers'] = TRUE;
         $config['total_rows'] = $allcount;
         $config['per_page'] = $rowperpage; 
@@ -38,15 +38,15 @@ class Pembelian extends MY_Controller {
         $data['row'] = $rowno; 
         echo json_encode($data); 
     }
-    function supplier(){
+    function buyer(){
         $key = $this->input->get("term");     
         $data = array();
-        $sql = "SELECT m.imaster_suplier, m.nama_suplier FROM erp_produk.master_suplier m where m.nama_suplier LIKE '%".$key."%'";   
+        $sql = "SELECT m.imaster_buyer, m.nama_buyer FROM erp_produk.master_buyer m where m.nama_buyer LIKE '%".$key."%'";   
         $que = $this->db->query($sql)->result_array();
         if(!empty($que)){
             foreach ($que as $line) {  
-                $row['id']        = trim($line['imaster_suplier']);
-                $row['value']     = trim($line['nama_suplier']); 
+                $row['id']        = trim($line['imaster_buyer']);
+                $row['value']     = trim($line['nama_buyer']); 
                 array_push($data, $row);
             }
         } 
@@ -58,13 +58,13 @@ class Pembelian extends MY_Controller {
     function jenis(){
         $key = $this->input->get("term");     
         $data = array();
-        $sql = "SELECT m.nama_jenis,m.harga_beli, m.imaster_jenis from erp_produk.master_jenis m where m.nama_jenis LIKE '%".$key."%'";   
+        $sql = "SELECT m.nama_jenis,m.harga_jual, m.imaster_jenis from erp_produk.master_jenis m where m.nama_jenis LIKE '%".$key."%'";   
         $que = $this->db->query($sql)->result_array();
         if(!empty($que)){
             foreach ($que as $line) {  
                 $row['id']        = trim($line['imaster_jenis']);
                 $row['value']     = trim($line['nama_jenis']); 
-                $row['harga']     = number_format(trim($line['harga_beli'])); 
+                $row['harga']     = number_format(trim($line['harga_jual'])); 
                 array_push($data, $row);
             }
         } 
@@ -74,75 +74,75 @@ class Pembelian extends MY_Controller {
     }
     
     function savedata(){ 
-        $imaster_suplier = $this->input->post('imaster_suplier');
-        $nama_suplier    = $this->input->post('nama_suplier');
+        $imaster_buyer = $this->input->post('imaster_buyer');
+        $nama_buyer    = $this->input->post('nama_buyer');
         $total_all       = $this->input->post('total_all');
 
-        if($imaster_suplier=="" || $imaster_suplier==0){
+        if($imaster_buyer=="" || $imaster_buyer==0){
             //Insert Suplier Dulu
-            $sup['nama_suplier'] = strtoupper($nama_suplier);
-            $this->db->insert('erp_produk.master_suplier',$sup);
-            $imaster_suplier = $this->db->insert_id();
+            $sup['nama_buyer'] = strtoupper($nama_buyer);
+            $this->db->insert('erp_produk.master_buyer',$sup);
+            $imaster_buyer = $this->db->insert_id();
         }
 
         //Save Headernya dulu;
-        $pemb['tanggal_pembelian'] = date('Y-m-d H:i:s');
-        $pemb['pic_pembelian']     = $this->session->userdata('capp_employee');
+        $pemb['tanggal_jual'] = date('Y-m-d H:i:s');
+        $pemb['pic_jual']     = $this->session->userdata('capp_employee');
         $pemb['total_all']         = str_replace(',', '', $total_all);
-        $pemb['imaster_suplier']   = $imaster_suplier;
-        $this->db->insert('erp_produk.pembelian',$pemb);
-        $ipembelian = $this->db->insert_id();
+        $pemb['imaster_buyer']   = $imaster_buyer;
+        $this->db->insert('erp_produk.jual',$pemb);
+        $ijual = $this->db->insert_id();
 
         //Update Kodenya
-        $nomor = 'PMB'.str_pad($ipembelian, 5, "0", STR_PAD_LEFT); 
-        $updt['cNomor_pembelian']= $nomor;   
-        $this->db->where('ipembelian', $ipembelian);
-        $this->db->update('erp_produk.pembelian', $updt);
+        $nomor = 'PMB'.str_pad($ijual, 5, "0", STR_PAD_LEFT); 
+        $updt['cNomor_jual']= $nomor;   
+        $this->db->where('ijual', $ijual);
+        $this->db->update('erp_produk.jual', $updt);
 
         //Simpan Detailnya
         $arr_pem = array();
         foreach($this->input->post('total_harga') as $k=>$v){ 
             $arr_pem['total_harga'][$k] = str_replace(',', '',$v);
         } 
-        foreach($this->input->post('harga_beli') as $k=>$v){ 
-            $arr_pem['harga_beli'][$k] = str_replace(',', '',$v);
+        foreach($this->input->post('harga_jual') as $k=>$v){ 
+            $arr_pem['harga_jual'][$k] = str_replace(',', '',$v);
         } 
         foreach($this->input->post('total_kg') as $k=>$v){ 
             $arr_pem['total_kg'][$k] = str_replace(',', '',$v);
         } 
         foreach($this->input->post('imaster_jenis') as $k=>$v){ 
             $pemdet = array();
-            $pemdet['ipembelian'] = $ipembelian;  
+            $pemdet['ijual'] = $ijual;  
             $pemdet['imaster_jenis'] = $v;  
             $pemdet['total_harga'] = $arr_pem['total_harga'][$k];
             $pemdet['total_kg']    = $arr_pem['total_kg'][$k];
-            $pemdet['harga_beli']  = $arr_pem['harga_beli'][$k];
-            $this->db->insert('erp_produk.pembelian_detail', $pemdet);  
+            $pemdet['harga_jual']  = $arr_pem['harga_jual'][$k];
+            $this->db->insert('erp_produk.jual_detail', $pemdet);  
         }    
         exit;
     }
 
     function deleteid(){
-        $ipembelian = $this->input->post('id');
+        $ijual = $this->input->post('id');
         $keterangan_hapus = $this->input->post('name'); 
 
         $updt['keterangan_hapus'] = $keterangan_hapus;
         $updt['istatus_hapus']    = 1;
         $updt['pic_hapus']        = $this->session->userdata('capp_employee');
 
-        $this->db->where('ipembelian', $ipembelian);
-        $this->db->update('erp_produk.pembelian', $updt);
+        $this->db->where('ijual', $ijual);
+        $this->db->update('erp_produk.jual', $updt);
     }
     
     function detail($id){
-        $ipembelian = $id;
-        $data['ipembelian'] = $id;
-        $data['url_back'] = base_url().'pembelian';
-        $data['row'] = $this->Pembelian_mod->get_by_id($id);
-        $data['res'] = $this->db->query('select * from erp_produk.pembelian_detail pd 
+        $ijual = $id;
+        $data['ijual'] = $id;
+        $data['url_back'] = base_url().'jual';
+        $data['row'] = $this->Jual_mod->get_by_id($id);
+        $data['res'] = $this->db->query('select * from erp_produk.jual_detail pd 
                                             JOIN erp_produk.master_jenis j on 
                                             pd.imaster_jenis = j.imaster_jenis where 
-                                            pd.ipembelian="'.$id.'"')->result_array();
+                                            pd.ijual="'.$id.'"')->result_array();
         $this->template->load('core_template','detail_view',$data); 
     }
 

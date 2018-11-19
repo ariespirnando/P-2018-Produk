@@ -1,10 +1,10 @@
-<h4>Produk - Transaksi Pembelian</h4>
+<h4>Produk - Transaksi Penjualan</h4>
 <hr>
 
 <div class="form_transaksi"><?php $this->load->view('transaksi') ?></div> 
 
 <hr>
-<h4>History - Transaksi Pembelian</h4>
+<h4>History - Transaksi Penjualan</h4>
 <hr>
 
 <div class="row">
@@ -27,7 +27,7 @@
 	          <tr> 
                  <th width="2%" style="text-align: center;vertical-align: middle;">No</th>   
 	               <th width="20%" style="text-align: center;vertical-align: middle;">Transaksi</th>  
-	               <th width="25%" style="text-align: center;vertical-align: middle;">Nama Supplier</th> 
+	               <th width="25%" style="text-align: center;vertical-align: middle;">Nama Pembeli</th> 
                  <th width="20%" style="text-align: center;vertical-align: middle;">Total (Rp.)</th>  
                  <th width="20%" style="text-align: center;vertical-align: middle;">Tanggal Transaksi</th>  
 	               <th width="5%" style="text-align: center;vertical-align: middle;">Detail</th>
