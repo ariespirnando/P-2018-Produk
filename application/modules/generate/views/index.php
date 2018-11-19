@@ -82,8 +82,28 @@
     function timbang(hari){
         if(hari=='Sabtu'){
             //Prosess Disini
-        }else{
-            _costume_alert('Peringatan !', 'Hari ini hari '+hari+'<br> Ingin Melanjutkan ?');
+        }else{ 
+            $.confirm({
+                title: 'Peringatan !',
+                content: 'Hari ini adalah hari <b>'+hari+'</b> dan bukan hari <b>Sabtu</b><br>Ingin Melanjutkan Prosses ?',
+                type: 'blue',
+                icon: 'fa fa-info-circle',
+                animation: 'scale',
+                closeAnimation: 'scale',
+                typeAnimated: true,
+                buttons: {
+                    formSubmit: {
+                        text: 'Ya',
+                        btnClass: 'btn-blue',
+                        action: function () {
+                             ajaxsimpan('t');
+                        }
+                    },
+                    cancel: function () {
+                         
+                    },
+                }, 
+            });
         }
         
     }
@@ -91,7 +111,31 @@
         if(hari=='Sabtu'){
             //Prosess Disini
         }else{
-            _costume_alert('Peringatan !', 'Hari ini hari '+hari+'<br> Ingin Melanjutkan ?');
+            $.confirm({
+                title: 'Peringatan !',
+                content: 'Hari ini adalah hari <b>'+hari+'</b> dan bukan hari <b>Sabtu</b><br>Ingin Melanjutkan Prosses ?',
+                type: 'blue',
+                typeAnimated: true,
+                icon: 'fa fa-info-circle',
+                animation: 'scale',
+                closeAnimation: 'scale',
+                buttons: {
+                    formSubmit: {
+                        text: 'Ya',
+                        btnClass: 'btn-blue',
+                        action: function () {
+                             ajaxsimpan('s');
+                        }
+                    },
+                    cancel: function () {
+                         
+                    },
+                }, 
+            });
         }
+    }
+
+    function ajaxsimpan(tipe){
+
     }
 </script>

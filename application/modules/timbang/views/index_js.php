@@ -88,11 +88,21 @@
         tr += "<td>"+ result[index].tanggal_timbang +"</td>"; 
         
         tr += "<td style='text-align:center;vertical-align:middle'><a href='<?php echo $detail?>"+result[index].itimbang+"'><span class='btn btn-default'><i class='fa fa-folder-open'></i></span></a></td>";  
-        tr += "<td style='text-align:center;vertical-align:middle'><span onclick='deletedata("+ result[index].itimbang +")' class='btn btn-danger'><i class='fa fa-trash'></i></span></td>"; 
+
+        if(result[index].iclose==1){
+          tr += "<td style='text-align:center;vertical-align:middle'><span onclick='nodeletedata()' class='btn btn-danger'><i class='fa fa-trash'></i></span></td>"; 
+        }else{
+          tr += "<td style='text-align:center;vertical-align:middle'><span onclick='deletedata("+ result[index].isortir +")' class='btn btn-danger'><i class='fa fa-trash'></i></span></td>"; 
+        }
+ 
         tr += "</tr>";
         $('#dataload_ok tbody').append(tr); 
       }
     } 
+
+    function nodeletedata(){
+      _costume_alert('Info', 'Data Tidak bisa dihapus <br>[Sudah di Bayar]');
+     }
  
      // Create table list
     

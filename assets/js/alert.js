@@ -15,6 +15,7 @@ function _costume_alert(ti,ci){
 	  }
 	});
 }
+ 
 function _costume_delete(id,ti,lb,pl,res,url){
     $.confirm({
         title: ti,
