@@ -216,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `sortir` (
   KEY `cNomor_sortir` (`cNomor_sortir`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table erp_produk.sortir: ~2 rows (approximately)
+-- Dumping data for table erp_produk.sortir: ~1 rows (approximately)
 /*!40000 ALTER TABLE `sortir` DISABLE KEYS */;
 INSERT INTO `sortir` (`isortir`, `cNomor_sortir`, `tanggal_sortir`, `capp_employee`, `total_all`, `pic_sortir`, `istatus_hapus`, `keterangan_hapus`, `pic_hapus`, `iclose`) VALUES
 	(2, 'SRT00002', '2018-11-16 14:38:48', 'KRY00017', 4520, 'KRY00017', 0, NULL, NULL, 0);
@@ -233,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `sortir_detail` (
   KEY `imaster_jenis` (`imaster_jenis`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table erp_produk.sortir_detail: ~4 rows (approximately)
+-- Dumping data for table erp_produk.sortir_detail: ~2 rows (approximately)
 /*!40000 ALTER TABLE `sortir_detail` DISABLE KEYS */;
 INSERT INTO `sortir_detail` (`isortir_detail`, `isortir`, `imaster_jenis`, `total_kg`) VALUES
 	(4, 2, 2, 50),
@@ -255,9 +255,9 @@ CREATE TABLE IF NOT EXISTS `timbang` (
   PRIMARY KEY (`itimbang`),
   KEY `pic_pembelian` (`capp_employee`),
   KEY `cNomor_timbang` (`cNomor_timbang`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table erp_produk.timbang: ~4 rows (approximately)
+-- Dumping data for table erp_produk.timbang: ~5 rows (approximately)
 /*!40000 ALTER TABLE `timbang` DISABLE KEYS */;
 INSERT INTO `timbang` (`itimbang`, `cNomor_timbang`, `tanggal_timbang`, `capp_employee`, `total_all`, `pic_timbang`, `istatus_hapus`, `keterangan_hapus`, `pic_hapus`, `iclose`) VALUES
 	(1, 'SRT00001', '2018-11-16 14:33:06', 'KRY00002', 160, 'KRY00017', 1, '', 'KRY00017', 0),
@@ -278,7 +278,7 @@ CREATE TABLE IF NOT EXISTS `timbang_detail` (
   KEY `imaster_jenis` (`imaster_jenis`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
--- Dumping data for table erp_produk.timbang_detail: ~6 rows (approximately)
+-- Dumping data for table erp_produk.timbang_detail: ~9 rows (approximately)
 /*!40000 ALTER TABLE `timbang_detail` DISABLE KEYS */;
 INSERT INTO `timbang_detail` (`itimbang_detail`, `itimbang`, `imaster_jenis`, `total_kg`) VALUES
 	(1, 1, 2, 20),
@@ -291,6 +291,122 @@ INSERT INTO `timbang_detail` (`itimbang_detail`, `itimbang`, `imaster_jenis`, `t
 	(8, 5, 4, 20),
 	(9, 5, 2, 20);
 /*!40000 ALTER TABLE `timbang_detail` ENABLE KEYS */;
+
+-- Dumping structure for table erp_produk.upah_sortir
+CREATE TABLE IF NOT EXISTS `upah_sortir` (
+  `iupah_sortir` int(11) NOT NULL AUTO_INCREMENT,
+  `cNomor_upah_sortir` varchar(50) DEFAULT NULL,
+  `tanggal_upah_sortir` datetime DEFAULT NULL,
+  `pic_upah_sortir` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`iupah_sortir`),
+  KEY `pic_pembelian` (`pic_upah_sortir`),
+  KEY `cNomor_jual` (`cNomor_upah_sortir`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table erp_produk.upah_sortir: ~10 rows (approximately)
+/*!40000 ALTER TABLE `upah_sortir` DISABLE KEYS */;
+INSERT INTO `upah_sortir` (`iupah_sortir`, `cNomor_upah_sortir`, `tanggal_upah_sortir`, `pic_upah_sortir`) VALUES
+	(1, 'PMB00001', '2018-11-14 10:05:07', 'KRY00017'),
+	(2, 'PMB00002', '2018-11-14 10:09:07', 'KRY00017'),
+	(3, 'PMB00003', '2018-11-14 10:43:32', 'KRY00017'),
+	(4, 'PMB00004', '2018-11-14 11:00:05', 'KRY00017'),
+	(5, 'PMB00005', '2018-11-14 11:00:33', 'KRY00017'),
+	(6, 'PMB00006', '2018-11-14 11:00:45', 'KRY00017'),
+	(7, 'PMB00007', '2018-11-14 11:04:17', 'KRY00017'),
+	(8, 'PMB00008', '2018-11-14 16:30:35', 'KRY00017'),
+	(9, 'PMB00009', '2018-11-15 16:15:04', 'KRY00017'),
+	(10, 'PMB00010', '2018-11-19 09:20:11', 'KRY00017');
+/*!40000 ALTER TABLE `upah_sortir` ENABLE KEYS */;
+
+-- Dumping structure for table erp_produk.upah_sortir_detail
+CREATE TABLE IF NOT EXISTS `upah_sortir_detail` (
+  `iupah_sortir_detail` int(11) NOT NULL AUTO_INCREMENT,
+  `iupah_sortir` int(11) NOT NULL,
+  `nama_karyawan` int(11) NOT NULL,
+  `total_kg` float NOT NULL,
+  `nama_jenis` varchar(50) NOT NULL,
+  `harga_jenis` float NOT NULL,
+  `total_harga` float NOT NULL,
+  PRIMARY KEY (`iupah_sortir_detail`),
+  KEY `ipembelian` (`iupah_sortir`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table erp_produk.upah_sortir_detail: ~14 rows (approximately)
+/*!40000 ALTER TABLE `upah_sortir_detail` DISABLE KEYS */;
+INSERT INTO `upah_sortir_detail` (`iupah_sortir_detail`, `iupah_sortir`, `nama_karyawan`, `total_kg`, `nama_jenis`, `harga_jenis`, `total_harga`) VALUES
+	(1, 1, 1, 0, '0', 0, 0),
+	(2, 1, 1, 0, '0', 0, 0),
+	(3, 2, 1, 0, '0', 0, 0),
+	(4, 2, 2, 0, '0', 0, 0),
+	(5, 2, 3, 0, '0', 0, 0),
+	(6, 3, 2, 0, '0', 0, 0),
+	(7, 4, 3, 0, '0', 0, 0),
+	(8, 5, 2, 0, '0', 0, 0),
+	(9, 6, 2, 0, '0', 0, 0),
+	(10, 7, 2, 0, '0', 0, 0),
+	(11, 7, 3, 0, '0', 0, 0),
+	(12, 8, 2, 0, '0', 0, 0),
+	(13, 9, 3, 0, '0', 0, 0),
+	(14, 10, 2, 0, '0', 0, 0);
+/*!40000 ALTER TABLE `upah_sortir_detail` ENABLE KEYS */;
+
+-- Dumping structure for table erp_produk.upah_timbang
+CREATE TABLE IF NOT EXISTS `upah_timbang` (
+  `iupah_timbang` int(11) NOT NULL AUTO_INCREMENT,
+  `cNomor_upah_timbang` varchar(50) DEFAULT NULL,
+  `tanggal_upah_timbang` datetime DEFAULT NULL,
+  `pic_upah_timbang` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`iupah_timbang`),
+  KEY `pic_pembelian` (`pic_upah_timbang`),
+  KEY `cNomor_jual` (`cNomor_upah_timbang`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table erp_produk.upah_timbang: ~10 rows (approximately)
+/*!40000 ALTER TABLE `upah_timbang` DISABLE KEYS */;
+INSERT INTO `upah_timbang` (`iupah_timbang`, `cNomor_upah_timbang`, `tanggal_upah_timbang`, `pic_upah_timbang`) VALUES
+	(1, 'PMB00001', '2018-11-14 10:05:07', 'KRY00017'),
+	(2, 'PMB00002', '2018-11-14 10:09:07', 'KRY00017'),
+	(3, 'PMB00003', '2018-11-14 10:43:32', 'KRY00017'),
+	(4, 'PMB00004', '2018-11-14 11:00:05', 'KRY00017'),
+	(5, 'PMB00005', '2018-11-14 11:00:33', 'KRY00017'),
+	(6, 'PMB00006', '2018-11-14 11:00:45', 'KRY00017'),
+	(7, 'PMB00007', '2018-11-14 11:04:17', 'KRY00017'),
+	(8, 'PMB00008', '2018-11-14 16:30:35', 'KRY00017'),
+	(9, 'PMB00009', '2018-11-15 16:15:04', 'KRY00017'),
+	(10, 'PMB00010', '2018-11-19 09:20:11', 'KRY00017');
+/*!40000 ALTER TABLE `upah_timbang` ENABLE KEYS */;
+
+-- Dumping structure for table erp_produk.upah_timbang_detail
+CREATE TABLE IF NOT EXISTS `upah_timbang_detail` (
+  `iupah_timbang_detail` int(11) NOT NULL AUTO_INCREMENT,
+  `iupah_timbang` int(11) NOT NULL,
+  `nama_karyawan` int(11) NOT NULL,
+  `total_kg` float NOT NULL,
+  `nama_jenis` varchar(50) NOT NULL,
+  `harga_jenis` float NOT NULL,
+  `total_harga` float NOT NULL,
+  PRIMARY KEY (`iupah_timbang_detail`),
+  KEY `ipembelian` (`iupah_timbang`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+
+-- Dumping data for table erp_produk.upah_timbang_detail: ~14 rows (approximately)
+/*!40000 ALTER TABLE `upah_timbang_detail` DISABLE KEYS */;
+INSERT INTO `upah_timbang_detail` (`iupah_timbang_detail`, `iupah_timbang`, `nama_karyawan`, `total_kg`, `nama_jenis`, `harga_jenis`, `total_harga`) VALUES
+	(1, 1, 0, 0, '', 0, 0),
+	(2, 1, 0, 0, '', 0, 0),
+	(3, 2, 0, 0, '', 0, 0),
+	(4, 2, 0, 0, '', 0, 0),
+	(5, 2, 0, 0, '', 0, 0),
+	(6, 3, 0, 0, '', 0, 0),
+	(7, 4, 0, 0, '', 0, 0),
+	(8, 5, 0, 0, '', 0, 0),
+	(9, 6, 0, 0, '', 0, 0),
+	(10, 7, 0, 0, '', 0, 0),
+	(11, 7, 0, 0, '', 0, 0),
+	(12, 8, 0, 0, '', 0, 0),
+	(13, 9, 0, 0, '', 0, 0),
+	(14, 10, 0, 0, '', 0, 0);
+/*!40000 ALTER TABLE `upah_timbang_detail` ENABLE KEYS */;
 
 
 -- Dumping database structure for erplaning
