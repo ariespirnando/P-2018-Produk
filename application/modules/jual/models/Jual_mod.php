@@ -1,6 +1,6 @@
 <?php
 
-class Pembelian_mod extends CI_Model {    
+class Jual_mod extends CI_Model {    
 
     // get all
     public $table = 'erp_produk.jual';

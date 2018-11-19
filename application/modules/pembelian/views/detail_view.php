@@ -40,7 +40,7 @@
                   <input readonly type="text" class="form-control nama_jenis required_" id="nama_jenis" name="nama_jenis[]" required="required" placeholder="Jenis Barang" value="<?php echo $val['nama_jenis']?>"> 
               </td> 
               <td style="width:15%;">  
-                <input type="text" readonly maxlength="12" class="form-control harga_beli angka required_angka" id="harga_beli" name="harga_beli[]" required="required" placeholder="Harga Beli" value="<?php echo number_format($val['harga_beli']) ?>">
+                <input type="text" readonly maxlength="12" class="form-control harga_beli angka required_angka" id="harga_beli" name="harga_beli[]" required="required" placeholder="Harga Beli" value="<?php echo number_format($val['beli_harga']) ?>">
               </td> 
               <td style="width:5%;"> 
                   <input type="text" readonly maxlength="5" class="form-control total_kg angka required_angka" id="total_kg" name="total_kg[]" required="required" placeholder="Total Berat" value="<?php echo number_format($val['total_kg']) ?>">

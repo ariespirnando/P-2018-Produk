@@ -94,7 +94,7 @@ class Jual extends MY_Controller {
         $ijual = $this->db->insert_id();
 
         //Update Kodenya
-        $nomor = 'PMB'.str_pad($ijual, 5, "0", STR_PAD_LEFT); 
+        $nomor = 'SEL'.str_pad($ijual, 5, "0", STR_PAD_LEFT); 
         $updt['cNomor_jual']= $nomor;   
         $this->db->where('ijual', $ijual);
         $this->db->update('erp_produk.jual', $updt);
@@ -139,7 +139,7 @@ class Jual extends MY_Controller {
         $data['ijual'] = $id;
         $data['url_back'] = base_url().'jual';
         $data['row'] = $this->Jual_mod->get_by_id($id);
-        $data['res'] = $this->db->query('select * from erp_produk.jual_detail pd 
+        $data['res'] = $this->db->query('select *,pd.harga_jual as jual_harga from erp_produk.jual_detail pd 
                                             JOIN erp_produk.master_jenis j on 
                                             pd.imaster_jenis = j.imaster_jenis where 
                                             pd.ijual="'.$id.'"')->result_array();

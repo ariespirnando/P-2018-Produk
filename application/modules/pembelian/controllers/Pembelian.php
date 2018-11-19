@@ -139,7 +139,7 @@ class Pembelian extends MY_Controller {
         $data['ipembelian'] = $id;
         $data['url_back'] = base_url().'pembelian';
         $data['row'] = $this->Pembelian_mod->get_by_id($id);
-        $data['res'] = $this->db->query('select * from erp_produk.pembelian_detail pd 
+        $data['res'] = $this->db->query('select *,pd.harga_beli as beli_harga from erp_produk.pembelian_detail pd 
                                             JOIN erp_produk.master_jenis j on 
                                             pd.imaster_jenis = j.imaster_jenis where 
                                             pd.ipembelian="'.$id.'"')->result_array();
