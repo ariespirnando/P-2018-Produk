@@ -19,7 +19,7 @@ class generate extends MY_Controller {
 				FROM erp_produk.sortir s
 				JOIN erplaning.app_employee a ON a.capp_employee = s.capp_employee
 				WHERE s.istatus_hapus <> 1 AND s.iclose <> 1";
-			$data['sortir'] = $this->db->query($sortir)->result_array();
+			$data['sortir'] = $this->db->query($sortir);
 
 			$timbang = "SELECT DISTINCT(a.capp_employee), a.cnama, 
 				(SELECT sum(d.total_kg * (SELECT m.harga_giling FROM erp_produk.master_jenis m 
@@ -31,7 +31,7 @@ class generate extends MY_Controller {
 				FROM erp_produk.timbang s
 				JOIN erplaning.app_employee a ON a.capp_employee = s.capp_employee
 				WHERE s.istatus_hapus <> 1 AND  s.iclose <> 1";
-			$data['timbang'] = $this->db->query($timbang)->result_array();
+			$data['timbang'] = $this->db->query($timbang);
 			$this->template->load('core_template','index',$data);
 		}
 	}
@@ -50,5 +50,16 @@ class generate extends MY_Controller {
 	        case '5': return "Jumat"; break;
 	        case '6': return "Sabtu"; break;
 	    };
+	}
+	function simpan(){
+		/*
+		SELECT  s.itimbang, a.cnama, m.nama_jenis, m.td.total_kg 
+		FROM erp_produk.timbang s
+		JOIN erplaning.app_employee a ON a.capp_employee = s.capp_employee
+		JOIN erp_produk.timbang_detail td on td.itimbang = s.itimbang
+		JOIN erp_produk.master_jenis m on m.imaster_jenis = td.imaster_jenis
+		WHERE s.istatus_hapus <> 1 AND  s.iclose <> 1
+		*/
+		exit;
 	}
 }

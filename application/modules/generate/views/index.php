@@ -1,6 +1,7 @@
 <h4>Payroll : Generate Gaji</h4>
 <hr> 
-  
+
+<?php if($sortir->num_rows()>0){ ?>
 <div class="table-responsive">                                 
     <table id="dataload_ok" class="table table-bordered table-striped" width="90%">  
 	     <thead>  
@@ -19,7 +20,7 @@
          	<?php 
          		$i = 1;
          		$total = 0;
-         		foreach ($sortir as $s) {
+         		foreach ($sortir->result_array() as $s) {
          			echo '<tr>';
          				echo '<td style="text-align: center;vertical-align: middle;" >'.$i++.'</td>';
          				echo '<td>'.$s['cnama'].'</td>';
@@ -37,9 +38,11 @@
          	</tr>
          </tfoot>
     </table>   
-</div>   
+</div>  
+<?php } ?> 
 
 <hr>
+<?php if($timbang->num_rows()>0){ ?>
 <div class="table-responsive">                                 
     <table id="dataload_ok" class="table table-bordered table-striped" width="90%">  
 	     <thead>  
@@ -58,7 +61,7 @@
          	<?php 
          		$i = 1;
          		$total = 0;
-         		foreach ($timbang as $t) {
+         		foreach ($timbang->result_array() as $t) {
          			echo '<tr>';
          				echo '<td style="text-align: center;vertical-align: middle;" >'.$i++.'</td>';
          				echo '<td>'.$t['cnama'].'</td>';
@@ -76,7 +79,8 @@
          	</tr>
          </tfoot>
     </table>   
-</div>   
+</div>  
+<?php } ?>  
 
 <script type="text/javascript">
     function timbang(hari){
@@ -85,7 +89,7 @@
         }else{ 
             $.confirm({
                 title: 'Peringatan !',
-                content: 'Hari ini adalah hari <b>'+hari+'</b> dan bukan hari <b>Sabtu</b><br>Ingin Melanjutkan Prosses ?',
+                content: 'Hari ini adalah hari <b>'+hari+'</b> dan bukan hari <b>Sabtu</b><br>Ingin Melanjutkan Proses ?',
                 type: 'blue',
                 icon: 'fa fa-info-circle',
                 animation: 'scale',
@@ -113,7 +117,7 @@
         }else{
             $.confirm({
                 title: 'Peringatan !',
-                content: 'Hari ini adalah hari <b>'+hari+'</b> dan bukan hari <b>Sabtu</b><br>Ingin Melanjutkan Prosses ?',
+                content: 'Hari ini adalah hari <b>'+hari+'</b> dan bukan hari <b>Sabtu</b><br>Ingin Melanjutkan Proses ?',
                 type: 'blue',
                 typeAnimated: true,
                 icon: 'fa fa-info-circle',
@@ -136,6 +140,19 @@
     }
 
     function ajaxsimpan(tipe){
+        if(tipe=='s'){
+            var kes = "Sortir";
+        }else{
+            var kes = "Giling";
+        }
 
+        $.ajax({
+         url: '<?php echo base_url()?>generate/simpan',
+         type: 'post',
+         data: "q="+tipe, 
+         success: function(response){
+             _costume_alert('Info', 'Data upah <b>'+kes+'</b> berhasil di Generate, <br>silakan lihat <b>History</b> Data pada <b>Menu Payroll</b> -> <b>History</b>');
+         }
+       });
     }
 </script>
