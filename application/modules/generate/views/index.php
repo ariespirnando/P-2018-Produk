@@ -83,7 +83,7 @@
         if(hari=='Sabtu'){
             //Prosess Disini
         }else{
-            _costume_alert('Peringatan !', 'Hari ini hari '+hari);
+            _costume_alert('Peringatan !', 'Hari ini hari '+hari+'<br> Ingin Melanjutkan ?');
         }
         
     }
@@ -91,7 +91,7 @@
         if(hari=='Sabtu'){
             //Prosess Disini
         }else{
-            _costume_alert('Peringatan !', 'Hari ini hari '+hari);
+            _costume_alert('Peringatan !', 'Hari ini hari '+hari+'<br> Ingin Melanjutkan ?');
         }
     }
 </script>

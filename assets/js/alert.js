@@ -5,6 +5,8 @@ function _costume_alert(ti,ci){
 	  icon: 'fa fa-info-circle',
 	  animation: 'scale',
 	  closeAnimation: 'scale',
+      type: 'blue',
+      typeAnimated: true,
 	  buttons: {
 	      okay: {
 	          text: 'OK',
@@ -23,6 +25,8 @@ function _costume_delete(id,ti,lb,pl,res,url){
         '<input type="text" placeholder="'+pl+'" class="name form-control" required />' +
         '</div>' +
         '</form>',
+        type: 'blue',
+        typeAnimated: true,
         buttons: {
             formSubmit: {
                 text: 'Submit',
