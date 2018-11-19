@@ -10,7 +10,7 @@
   </div>
   <div class="form-group">
         <div class="form-group">
-          <label>Detail Sortir</label>
+          <label>Detail Timbang [Sortir]</label>
           <div class="reload_detail">
             <?php $this->load->view('detail') ?>
           </div>

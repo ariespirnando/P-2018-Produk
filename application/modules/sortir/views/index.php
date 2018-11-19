@@ -1,10 +1,10 @@
-<h4>Produk - Sortir</h4>
+<h4>Produk - Timbang [Sortir]</h4>
 <hr>
 
 <div class="form_transaksi"><?php $this->load->view('transaksi') ?></div> 
 
 <hr>
-<h4>History - Sortir</h4>
+<h4>History - Timbang [Sortir]</h4>
 <hr>
 
 <div class="row">

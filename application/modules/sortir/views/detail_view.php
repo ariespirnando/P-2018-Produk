@@ -1,4 +1,4 @@
-<h4>Produk - Detail Transaksi Pembelian</h4>
+<h4>Produk - Detail Timbang [Sortir]</h4>
 <hr>
 
   <div class="form-group">
