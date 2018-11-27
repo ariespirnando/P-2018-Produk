@@ -58,7 +58,7 @@ class Jual extends MY_Controller {
     function jenis(){
         $key = $this->input->get("term");     
         $data = array();
-        $sql = "SELECT m.nama_jenis,m.harga_jual, m.imaster_jenis from erp_produk.master_jenis m where m.nama_jenis LIKE '%".$key."%'";   
+        $sql = "SELECT m.nama_jenis,m.harga_jual, m.imaster_jenis from erp_produk.master_jenis m where m.nama_jenis LIKE '%".$key."%'";   // Tambahain Cek Dari Hasil Giling, Untuk Ngurangin Stok Giling   
         $que = $this->db->query($sql)->result_array();
         if(!empty($que)){
             foreach ($que as $line) {  
